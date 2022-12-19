@@ -12,8 +12,8 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
-function CreateAccount() {
+// import CheckBox from "@react-native-community/checkbox";
+function CreateAccount({navigation}) {
   const Signin = ({ onPress, title }) => (
     <TouchableHighlight onPress={onPress} style={styles.appButtonContainer}>
       <Text style={styles.appButtonText}>{title}</Text>
@@ -84,11 +84,11 @@ function CreateAccount() {
           OR
         </Text>
         <View style={styles.socialmedia}>
-          <Image source={require("../assets/facebook.jpeg")} />
+          <Image style={styles.size} source={require("../assets/google.png")} />
           <Image source={require("../assets/linkedin.jpeg")} />
           <Image source={require("../assets/facebook.jpeg")} />
           <View style={styles.sigin}>
-            <Text style={{ color: "#7d7d7d", fontSize: 14 }}>
+            <Text style={{ color: "#7d7d7d", fontSize: 14 }} onPress={()=>{navigation.navigate("Intro")}}>
               Already have an account .Sigin in
             </Text>
           </View>
@@ -101,6 +101,10 @@ function CreateAccount() {
 export default CreateAccount;
 
 const styles = StyleSheet.create({
+  size:{
+    height:30,
+    width:30
+  },
   heading: {
     // flex: 0.4,
     marginBottom: 20,
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#f9f9ff",
-    width: 315,
+    width: 345,
     paddingLeft: 15,
     // paddingBottom:15,
     // marginLeft:-50,

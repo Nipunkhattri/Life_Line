@@ -11,14 +11,14 @@ import {
   TouchableHighlight,
   Image,TouchableOpacity
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
+import CheckBox from 'expo-checkbox';
 // import { Checkbox } from "react-native-paper";
-function Intro() {
+function Intro({navigation}) {
   const Signin=({onPress,title})=>(
     <TouchableHighlight onPress={onPress} style={style.appButtonContainer}>
     <Text style={style.appButtonText}>{title}</Text>
   </TouchableHighlight> )
-    const [toggleCheckBox, setToggleCheckBox] = useState(false)
+   const [isSelected, setSelection] = useState(false);
 
   return (
     <>
@@ -46,7 +46,7 @@ function Intro() {
           </View>
           <Text style={style.label}>Password</Text>
           <View
-            style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+            style={{ flex: 1, flexDirection: "row", alignItems: "center"}}
           >
             <TextInput
               style={style.input}
@@ -55,23 +55,30 @@ function Intro() {
             />
 
           </View>
+          
         </View>
-          <View style={style.checkbox}>
-            {/* <CheckBox/> */}
-            <Text>
-              
+        <View style={style.sec}>
+          <View style={style.containall}>
+          <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+          style={style.checkbox}
+        />
+          <Text style={style.txt}>
           Remember me</Text>
-            <Text>Forget Password?</Text></View>
-            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" onPress={()=>{console.log("signin")}}/>
+            <Text style={style.txt}>Forget Password?</Text>
+          </View>
+          </View>
+            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" marginTop="16"  onPress={()=>{console.log("signin")}}/>
       
             <Text style={{alignSelf:'center',marginTop:20,color:'#7d7d7d'}}>OR</Text>
         <View style={style.socialmedia}>
-          <Image source={require("../assets/facebook.jpeg")}/>
+          <Image style={style.size} source={require("../assets/google.png")}/>
           <Image source={require("../assets/linkedin.jpeg")}/>
           <Image source={require("../assets/facebook.jpeg")}/>
         <View style={style.sigin}>
 
-        <Text style={{color:'#7d7d7d',fontSize:14}}>Already have an account .Sigin in</Text>
+        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("create")}}>Already have an account .Sigin in</Text>
         </View>
         </View>
       </KeyboardAvoidingView>
@@ -82,6 +89,28 @@ function Intro() {
 export default Intro;
 
 const style = StyleSheet.create({
+  size:{
+      height:30,
+      width:30
+  },
+  txt:{
+    marginTop:52
+  },
+  checkbox:{
+    height:10,
+    width:10,
+    // borderWidth:4,
+  },
+  sec:{
+    // borderWidth:3,
+    display:"flex",
+    marginTop:40
+  },
+  containall: {
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-between"
+  },
   heading: {
     flex: 0.5,
     color: "#2aa05d",
@@ -118,7 +147,7 @@ const style = StyleSheet.create({
   },
   input: {
     backgroundColor: "#f9f9ff",
-    width: 315,
+    width: 345,
     paddingLeft: 15
     ,
     // marginLeft:-50,
