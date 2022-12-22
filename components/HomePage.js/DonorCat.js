@@ -1,5 +1,7 @@
 import { Text, View ,StyleSheet} from 'react-native'
 import React, { Component } from 'react'
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+ 
 
 const Box=()=>{
   return (
