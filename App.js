@@ -17,14 +17,14 @@ const App = () => {
     <>
     {/* <Intro/> */}
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Landing'>
+      <Stack.Navigator initialRouteName='Landing' >
           <Stack.Screen name='Landing' options={{ headerShown: false }}  component={LandingPage}/>
           <Stack.Screen name='First' options={{ headerShown: false }}  component={First}/>
           <Stack.Screen name='Second'options={{ headerShown: false }}   component={Second}/>
           <Stack.Screen name='Intro' options={{ headerShown: false }}  component={Intro}/>
           <Stack.Screen name='create'options={{ headerShown: false }}   component={CreateAccount}/>
           <Stack.Screen name='Home'options={{ headerShown: false }}   component={HomePage}/>
-          <Stack.Screen name='DonorCat'options={{ headerShown: false }}   component={DonorCat}/>
+          <Stack.Screen name='DonorCat'  component={DonorCat} />
       </Stack.Navigator>
     </NavigationContainer>
     </>
