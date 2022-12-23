@@ -69,7 +69,7 @@ function Intro({navigation}) {
             <Text style={style.txt}>Forget Password?</Text>
           </View>
           </View>
-            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" marginTop="16"  onPress={()=>{console.log("signin")}}/>
+            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" marginTop="16"  onPress={()=>{navigation.navigate("otp")}}/>
       
             <Text style={{alignSelf:'center',marginTop:20,color:'#7d7d7d'}}>OR</Text>
         <View style={style.socialmedia}>
