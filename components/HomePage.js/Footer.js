@@ -17,6 +17,7 @@ import Bell from "../../assets/Bell";
 
 // import Slider2 from "./Slider2";
 import Home from "../../assets/Home";
+// import Health from "../../assets/Vector";
 // import Slider from "./Slider";
 // import Location from "../../assets/Location";
 // import { style } from "deprecated-react-native-prop-types/DeprecatedTextPropTypes";
@@ -37,7 +38,7 @@ function Footer() {
         style={home2.FooterIcon}
    
       >
-        <Home />
+        <Image source={require("../../assets/Vector.png")}/>
       </View>
     </TouchableOpacity>
     <TouchableOpacity>
@@ -74,6 +75,10 @@ const home2=StyleSheet.create({
     position: "absolute",
     bottom: 0,
     flex: 0.4,
+    borderWidth:2,
+    borderTopEndRadius:12,
+    borderTopLeftRadius:12,
+    backgroundColor:"black",
     justifyContent: "space-evenly",
     width: "100%",
     height: 50,
@@ -82,6 +87,7 @@ const home2=StyleSheet.create({
   },
   FooterIcon: {
     flex: 0.1,
+    marginTop:6,
     justifyContent: "center",
     alignItems: "center",
     width: 35,

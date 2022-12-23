@@ -13,8 +13,7 @@ function App() {
   },
   {
     image:require('../../assets/image-product-4.jpg')
-  },
-
+  }
 ]
   return (
     <>
@@ -28,8 +27,9 @@ function App() {
 export default App
 const style=StyleSheet.create({
 container:{
-  flex:1,
+  flex:0.1,
+  marginBottom:13,
   backgroundColor:'white',
-  paddingTop:Platform.OS==='android'? StatusBar.currentHeight:0,
+  // paddingTop:Platform.OS==='android'? StatusBar.currentHeight:0,
 }
 })
