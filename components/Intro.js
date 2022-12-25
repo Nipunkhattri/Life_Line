@@ -12,6 +12,9 @@ import {
   Image,TouchableOpacity
 } from "react-native";
 import CheckBox from 'expo-checkbox';
+import { NavigationActions } from '@react-navigation/native'
+import { login } from "../Redux/actions/auth";
+import { useDispatch } from "react-redux";
 // import { Checkbox } from "react-native-paper";
 function Intro({navigation}) {
   const Signin=({onPress,title})=>(
@@ -19,7 +22,18 @@ function Intro({navigation}) {
     <Text style={style.appButtonText}>{title}</Text>
   </TouchableHighlight> )
    const [isSelected, setSelection] = useState(false);
+   const dispatch = useDispatch();
+   const [loginuser, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  // const {name,email,password,phNum} = user;
+  const updatestate = (data) => setUser(()=>({...loginuser,...data}))
 
+  const handlelogin = ()=>{
+    // console.log(loginuser);
+    dispatch(login((loginuser)));
+  }
   return (
     <>
       <KeyboardAvoidingView
@@ -38,9 +52,9 @@ function Intro({navigation}) {
           <Text style={style.label}>Email</Text>
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             <TextInput
-
               style={style.input}
               placeholder="✉️    Enter your email"
+              onChangeText={(email) =>updatestate({email})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -51,6 +65,7 @@ function Intro({navigation}) {
             <TextInput
               style={style.input}
               placeholder="🔐   Enter your Password"
+              onChangeText={(password) =>updatestate({password})}
               // right={<TextInput.Icon name='eye'/>}
             />
 
@@ -69,7 +84,7 @@ function Intro({navigation}) {
             <Text style={style.txt}>Forget Password?</Text>
           </View>
           </View>
-            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" marginTop="16"  onPress={()=>{navigation.navigate("otp")}}/>
+            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" marginTop="16"  onPress={handlelogin}/>
       
             <Text style={{alignSelf:'center',marginTop:20,color:'#7d7d7d'}}>OR</Text>
         <View style={style.socialmedia}>
@@ -78,7 +93,7 @@ function Intro({navigation}) {
           <Image source={require("../assets/facebook.jpeg")}/>
         <View style={style.sigin}>
 
-        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("create")}}>Already have an account .Sigin in</Text>
+        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("SignUp")}}>Already have an account .Sigin in</Text>
         </View>
         </View>
       </KeyboardAvoidingView>

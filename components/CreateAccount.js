@@ -1,3 +1,4 @@
+// import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 import React from "react";
 import { useState } from "react";
 import {
@@ -12,6 +13,11 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { showError } from '../utilits/helperFunction';
+import validator from '../utilits/validation';
+import { useDispatch } from "react-redux";
+import { NavigationActions } from '@react-navigation/native'
+import { signup } from "../Redux/actions/auth";
 // import CheckBox from "@react-native-community/checkbox";
 function CreateAccount({navigation}) {
   const Signin = ({ onPress, title }) => (
@@ -19,6 +25,36 @@ function CreateAccount({navigation}) {
       <Text style={styles.appButtonText}>{title}</Text>
     </TouchableHighlight>
   );
+  const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phNum:""
+  });
+  const {name,email,password,phNum} = user;
+  const updatestate = (data) => setUser(()=>({...user,...data}))
+  // const isValidData = () => {
+  //   const error = validator({
+  //       email,
+  //       password,
+  //       name,
+  //       phNum
+  //   })
+  //   if (error) {
+  //       showError(error)
+  //       return false
+  //   }
+  //   return true
+  // }
+
+  const handleSignup = (e)=>{
+    // const checkValid = isValidData()
+    // if (checkValid) {
+      // console.log(user);
+      dispatch(signup((user),NavigationActions));
+    // }
+  }
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   return (
     <>
@@ -41,7 +77,9 @@ function CreateAccount({navigation}) {
           {/* <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}> */}
           <TextInput
             style={styles.input}
+            // value={fullname} 
             placeholder="Enter your full name"
+            onChangeText={(name) =>updatestate({name})}
             // right={<TextInput.Icon name='eye'/>}
           />
           {/* </View> */}
@@ -49,7 +87,9 @@ function CreateAccount({navigation}) {
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             <TextInput
               style={styles.input}
+              // value={user.password}
               placeholder="🔐   Enter your Password"
+              onChangeText={(password) =>updatestate({password})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -59,6 +99,7 @@ function CreateAccount({navigation}) {
             <TextInput
               style={styles.input}
               placeholder="🔐   Enter your Email"
+              onChangeText={(email) =>updatestate({email})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -67,6 +108,7 @@ function CreateAccount({navigation}) {
             <TextInput
               style={styles.input}
               placeholder="🔐   Enter your mobile number"
+              onChangeText={(phNum) =>updatestate({phNum})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -75,9 +117,9 @@ function CreateAccount({navigation}) {
           title="Sigi in"
           size="sm"
           backgroundColor="#007bff"
-          onPress={() => {
-            console.log("signin");
-          }}
+          onPress={
+            handleSignup
+          }
         />
 
         <Text style={{ alignSelf: "center", marginTop: 20, color: "#7d7d7d" }}>
@@ -88,7 +130,7 @@ function CreateAccount({navigation}) {
           <Image source={require("../assets/linkedin.jpeg")} />
           <Image source={require("../assets/facebook.jpeg")} />
           <View style={styles.sigin}>
-            <Text style={{ color: "#7d7d7d", fontSize: 14 }} onPress={()=>{navigation.navigate("Intro")}}>
+            <Text style={{ color: "#7d7d7d", fontSize: 14 }} onPress={()=>{navigation.navigate("login")}}>
               Already have an account .Sigin in
             </Text>
           </View>

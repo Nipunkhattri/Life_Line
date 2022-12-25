@@ -26,7 +26,7 @@ const Second = ({navigation}) => {
             <View style={styles.CircleShape1} />
             <View style={styles.CircleShape2} />
         </View>
-        <AppButton title="Next" size="sm" backgroundColor="#007bff" onPress={()=>{navigation.navigate("create")}}/>
+        <AppButton title="Next" size="sm" backgroundColor="#007bff" onPress={()=>{navigation.navigate("SignUp")}}/>
         <SkipButton title="Skip" size="sm" backgroundColor="#007bff" />
         </View>
     </>
