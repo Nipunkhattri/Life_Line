@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { showError } from '../utilits/helperFunction';
 import validator from '../utilits/validation';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { NavigationActions } from '@react-navigation/native'
 import { signup } from "../Redux/actions/auth";
 // import CheckBox from "@react-native-community/checkbox";
@@ -47,14 +47,16 @@ function CreateAccount({navigation}) {
   //   }
   //   return true
   // }
-
+  const data = useSelector(state=>state.currentUserreducer);
   const handleSignup = (e)=>{
-    // const checkValid = isValidData()
-    // if (checkValid) {
-      // console.log(user);
-      dispatch(signup((user),NavigationActions));
-    // }
-  }
+      dispatch(signup((user)));
+    }
+    if(data!=null){
+      navigation.navigate("login");
+    }
+    else{
+      navigation.navigate("SignUp");
+    }
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   return (
     <>

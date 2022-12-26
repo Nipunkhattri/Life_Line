@@ -12,9 +12,9 @@ import {
   Image,TouchableOpacity
 } from "react-native";
 import CheckBox from 'expo-checkbox';
-import { NavigationActions } from '@react-navigation/native'
+import { NavigationActions, useNavigation } from '@react-navigation/native'
 import { login } from "../Redux/actions/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { Checkbox } from "react-native-paper";
 function Intro({navigation}) {
   const Signin=({onPress,title})=>(
@@ -30,10 +30,21 @@ function Intro({navigation}) {
   // const {name,email,password,phNum} = user;
   const updatestate = (data) => setUser(()=>({...loginuser,...data}))
 
+  const data = useSelector(state=>state.currentUserreducer);
+  console.log(data);
   const handlelogin = ()=>{
     // console.log(loginuser);
+    console.log(data);
     dispatch(login((loginuser)));
   }
+  console.log(data);
+  if(data!=null){
+    navigation.navigate("Home");
+  }
+  else{
+    navigation.navigate("login")
+  }
+
   return (
     <>
       <KeyboardAvoidingView

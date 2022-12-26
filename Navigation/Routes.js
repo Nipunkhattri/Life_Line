@@ -44,8 +44,6 @@ export default function Routes() {
           options={{ headerShown: false }}
           component={Otp}
         />
-        {!!userdata && userdata?.token? (
-          <>
             <Stack.Screen
               name="Home"
               options={{ headerShown: false }}
@@ -54,9 +52,6 @@ export default function Routes() {
             <Stack.Screen name="DonorCat"
              component={DonorCat}
              options={{ headerShown: false }} />
-          </>
-        ) : (
-          <>
           <Stack.Screen
               name="SignUp"
               options={{ headerShown: false }}
@@ -67,8 +62,6 @@ export default function Routes() {
               options={{ headerShown: false }}
               component={login}
             />
-          </>
-        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -25,6 +25,7 @@ import Footer from "./Footer";
 import TopBar from "./TopBar";
 // import { TextInput } from "react-native-paper";
 import { styles } from "react-native-image-slider-banner/src/style";
+import { useSelector } from "react-redux";
 const DonorButton = ({ onPress, title }) => (
   <TouchableOpacity onPress={onPress} style={home.donorButtonContainer}>
     <Text style={home.donorButtonText}>{title}</Text>
@@ -81,11 +82,13 @@ const data =[
   }
 ]
 
+
+
 function HomePage() {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(data);
   const [masterDataSource, setMasterDataSource] = useState(data)
-
+  
   const item = ({item}) =>{
     return(
               <View style={{ flex: 1, backgroundColor: "white" ,marginBottom:5}}>
@@ -130,7 +133,8 @@ function HomePage() {
       setSearch(text);
     }
   };
-  
+  const user = useSelector(state=>state.currentUserreducer);
+  console.log(user);
   return (
     <>
       <SafeAreaView style={home.droidSafeArea}>
@@ -142,7 +146,7 @@ function HomePage() {
                 source={require("../../assets/google.png")}
                 style={home.ProfileImage}
               />{" "}
-              Ishan Gupta
+              {user.result.name}
             </Text>
             <DonorButton
               title="Become a donor"
