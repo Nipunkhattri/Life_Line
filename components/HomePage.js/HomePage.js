@@ -26,6 +26,7 @@ import TopBar from "./TopBar";
 // import { TextInput } from "react-native-paper";
 import { styles } from "react-native-image-slider-banner/src/style";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 const DonorButton = ({ onPress, title }) => (
   <TouchableOpacity onPress={onPress} style={home.donorButtonContainer}>
     <Text style={home.donorButtonText}>{title}</Text>
@@ -89,6 +90,14 @@ function HomePage() {
   const [filteredDataSource, setFilteredDataSource] = useState(data);
   const [masterDataSource, setMasterDataSource] = useState(data)
   
+  const navigation = useNavigation()
+
+
+  const navigatepage = (e) =>{
+    e.preventDefault();
+    navigation.navigate("Hospage");
+  }
+
   const item = ({item}) =>{
     return(
               <View style={{ flex: 1, backgroundColor: "white" ,marginBottom:5}}>
@@ -97,7 +106,7 @@ function HomePage() {
         <Image source={require('../../assets/logo1.png')}/>
                         </View>
       <View style={home1.details}>
-        <Text style={home1.HospitalName}>{item.name}
+        <Text style={home1.HospitalName} onPress={navigatepage}>{item.name}
         </Text>
         <Icon  style={home1.Fav}/>
           <Location style={home1.Location}/>
@@ -279,8 +288,6 @@ const home = StyleSheet.create({
   },
   droidSafeArea: {
     flex: 1,
-    // backgroundColor: npLBlue,
-    // padding:10,
     paddingTop: Platform.OS === "android" ? 25 : 0,
   },
 

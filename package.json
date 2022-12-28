@@ -25,6 +25,7 @@
     "react-native": "0.70.5",
     "react-native-eject": "^0.2.0",
     "react-native-flash-message": "^0.3.1",
+    "react-native-hr": "^1.1.4",
     "react-native-image-slider-banner": "^1.0.3",
     "react-native-image-slider-box": "^2.0.7",
     "react-native-paper": "^5.1.0",

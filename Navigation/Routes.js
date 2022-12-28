@@ -11,7 +11,9 @@ import { useSelector } from "react-redux";
 import Home from "../components/HomePage.js/HomePage";
 import SignUp from "../components/CreateAccount";
 import DonorCat from "../components/HomePage.js/DonorCat";
+import Hospage from "../components/HospitalPage";
 import login from "../components/Intro";
+import HospitalOrganReq from "../components/HospitalOrganReq";
 // import  SignUp  from "../components/CreateAccount";
 
 const Stack = createNativeStackNavigator();
@@ -44,24 +46,34 @@ export default function Routes() {
           options={{ headerShown: false }}
           component={Otp}
         />
-            <Stack.Screen
-              name="Home"
-              options={{ headerShown: false }}
-              component={Home}
-            />
-            <Stack.Screen name="DonorCat"
-             component={DonorCat}
-             options={{ headerShown: false }} />
-          <Stack.Screen
-              name="SignUp"
-              options={{ headerShown: false }}
-              component={SignUp}
-            />
-            <Stack.Screen
-              name="login"
-              options={{ headerShown: false }}
-              component={login}
-            />
+        <Stack.Screen
+          name="Home"
+          options={{ headerShown: false }}
+          component={Home}
+        />
+        <Stack.Screen name="DonorCat"
+          component={DonorCat}
+          options={{ headerShown: false }} />
+        <Stack.Screen
+          name="SignUp"
+          options={{ headerShown: false }}
+          component={SignUp}
+        />
+        <Stack.Screen
+          name="login"
+          options={{ headerShown: false }}
+          component={login}
+        />
+        <Stack.Screen
+          name="Hospage"
+          options={{ headerShown: false }}
+          component={Hospage}
+        />
+        <Stack.Screen
+          name="orgreq"
+          options={{ headerShown: false }}
+          component={HospitalOrganReq}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
