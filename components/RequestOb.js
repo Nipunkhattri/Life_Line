@@ -1,14 +1,11 @@
 // import { style } from 'deprecated-react-native-prop-types/DeprecatedViewPropTypes'
 import React, { useState } from 'react'
-import { View ,Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput,Pressable} from 'react-native'
+import { View ,Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput,Pressable,Button} from 'react-native'
 import { useDispatch } from 'react-redux';
 import { findorgans } from "../Redux/actions/auth";
-// import { TextInput } from 'react-native-paper';
-// const DonorButton = ({ onPress, title }) => (
-//     <TouchableOpacity onPress={onPress} style={style.donorButtonContainer}>
-//       <Text style={style.donorButtonText}>{title}</Text>
-//     </TouchableOpacity>
-// );
+// import DatePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/native';
 const BloodButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={style.bloodButtonContainer}>
       <Text style={style.bloodButtonText}>{title}</Text>
@@ -24,19 +21,42 @@ const BloodBankButton = ({ onPress, title }) => (
       <Text style={style.submitButtonText}>{title}</Text>
     </TouchableOpacity>
 );
-const HospitalOrganReq = () => {
+const RequestOb = ({navigation}) => {
+  // const navigation = useNavigation();
     const [page,setpage]=useState('true');
     const dispatch = useDispatch
     const [find,setfind]= useState({
         name:"",
-        email:"",
-        phone:"",
-        age:"",
-        gender:"",
-        obname:""
+        Address:"",
+        date:"",
+        time:"",
+        obname:"",
+        Note:"",
     })
     const title = 'Organ' ;
     const newtitle = 'blood' ;
+    const datetitle = 'Date'
+    const timetitle = 'Time'
+    const [datePicker, setDatePicker] = useState(false);
+  const [timePicker, setTimePicker] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date(Date.now()));
+    console.log(date);
+    console.log(time);
+    function showDatePicker() {
+        setDatePicker(true);
+      };
+      function showTimePicker() {
+        setTimePicker(true);
+      };
+      function onDateSelected(event, value) {
+        setDate(value);
+        setDatePicker(false);
+      };
+      function onTimeSelected(event, value) {
+        setTime(value);
+        setTimePicker(false);
+      };
     const pdata = (data)=>setfind(()=>({...find,...data}))
     console.log(find);
     const Bloodfind = ()=>{
@@ -47,7 +67,7 @@ const HospitalOrganReq = () => {
         setpage('false');
         console.log(page);
     }
-    const Bloodfindorgan = ()=>{
+    const Bloodreqorgan = ()=>{
         console.log(find);
         // dispatch(findorgans((find)));
     }
@@ -58,8 +78,7 @@ const HospitalOrganReq = () => {
   return (
     <View style={style.main}>
         <ScrollView style={style.ScrollView}>
-        <Text style={style.txt}>Apollo Hospital</Text>
-        <Image style={style.tinyLogo} source={require('../assets/hospital.png')}/>
+        <Text style={style.txt}>Request</Text>
           {console.log(page)}
           {
               page=='true'?(
@@ -67,8 +86,8 @@ const HospitalOrganReq = () => {
             <View style={style.btndiv}>
             <Pressable  style={{
                elevation: 8,
-               width: 160,
-               height: 50,
+               width: 190,
+               height: 60,
                backgroundColor: "white",
                color:"black",
                // borderRadius: 100,
@@ -80,12 +99,22 @@ const HospitalOrganReq = () => {
                paddingVertical: 13,
                // paddingHorizontal: 12,
             }} onPress={Organfind}>
-      <Text style={style.donorButtonText}>{title}</Text>
+      <Text style={
+        {
+            fontSize: 22,
+            color: "#A8ABB3",
+            fontWeight: "400",
+            marginLeft:53
+            // alignSelf: "center",
+            // marginBottom:10,
+            // textTransform: "uppercase",
+        }
+      }>{title}</Text>
     </Pressable>
     <Pressable  style={{
              elevation: 8,
              width: 170,
-             height: 52,
+             height: 62,
              position:"absolute",
              left:132,
              backgroundColor: "#2AA05D",
@@ -96,79 +125,85 @@ const HospitalOrganReq = () => {
              paddingVertical: 13,
              // paddingHorizontal: 12,
             }} onPress={Organfind}>
-      <Text style={style.donorButtonText}>{newtitle}</Text>
+      <Text style={{
+         fontSize: 22,
+         color: "white",
+         fontWeight: "400",
+         marginLeft:53
+         // alignSelf: "center",
+         // marginBottom:10,
+         // textTransform: "uppercase",
+      }}>{newtitle}</Text>
     </Pressable>
+    <TouchableOpacity style={{
+      // backgroundColor:"green"
+    }} onPress={()=>{navigation.navigate("people")}} >
+        <Image style={{
+          marginLeft:170,
+          marginTop:30
+        }} source={require("../assets/Noti.png")}/>
+        </TouchableOpacity>
             </View>
                 <View style={style.form}>
-                <Text style={style.label}>Name</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
-                        style={style.input}
-                        placeholder="Enter your Name"
+                        style={style.input2}
+                        placeholder="Enter Hospital Name"
                         onChangeText={(name) =>pdata({name})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Email</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Email"
-                        onChangeText={(email) =>pdata({email})}
+                        placeholder="Address of the hospital"
+                        onChangeText={(Address) =>pdata({Address})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Phone no.</Text>
+                        <View style={{display:"flex",flexDirection:"row"}}>
+        <View style={style.iall}>
+        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+<TextInput
+    style={style.input4}
+    placeholder="Enter Date"
+    onChangeText={(date) =>pdata({date})}
+    // right={<TextInput.Icon name='eye'/>}
+    />
+    </View>
+    <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+
+                    <TextInput
+                        style={style.input7}
+                        placeholder="Enter Time"
+                        onChangeText={(time) =>pdata({time})}
+                        // right={<TextInput.Icon name='eye'/>}
+                        />
+                        </View>
+        </View>
+        </View>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Phone number"
-                        onChangeText={(phone) =>pdata({phone})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Age</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Age"
-                        onChangeText={(age) =>pdata({age})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Gender</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Gender"
-                        onChangeText={(gender) =>pdata({gender})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Blood Required</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter Blood grp required"
+                        placeholder="Blood Group"
                         onChangeText={(obname) =>pdata({obname})}
+                        // right={<TextInput.Icon name='eye'/>}
+                        />
+                        </View>
+                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+                    <TextInput
+                        style={style.input1}
+                        placeholder="Write a Note"
+                        onChangeText={(Note) =>pdata({Note})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
                         
                 </View>
-                <BloodBankButton
-              title="Mail to blood bank"
-              size="sm"
-              backgroundColor="#007bff"
-              onPress={
-                  Bloodbankfind
-                }
-                />
+                
                 </>
             ):
             (
@@ -177,7 +212,7 @@ const HospitalOrganReq = () => {
               <Pressable  style={{
                elevation: 8,
                width: 160,
-               height: 50,
+               height: 62,
                backgroundColor: "#2AA05D",
                color:"black",
                // borderRadius: 100,
@@ -189,12 +224,22 @@ const HospitalOrganReq = () => {
                paddingVertical: 13,
                // paddingHorizontal: 12,
             }} onPress={Organfind}>
-      <Text style={style.donorButtonText}>{title}</Text>
+      <Text style={
+        {
+            fontSize: 22,
+        color: "white",
+        fontWeight: "400",
+        marginLeft:53
+        // alignSelf: "center",
+        // marginBottom:10,
+        // textTransform: "uppercase",
+        }
+      }>{title}</Text>
     </Pressable>
     <Pressable  style={{
              elevation: 8,
-             width: 170,
-             height: 52,
+             width: 160,
+             height: 62,
              position:"absolute",
              left:132,
              backgroundColor: "white",
@@ -205,81 +250,91 @@ const HospitalOrganReq = () => {
              paddingVertical: 13, 
              // paddingHorizontal: 12,
             }} onPress={Bloodfind}>
-      <Text style={style.donorButtonText}>{newtitle}</Text>
+      <Text style={
+        {
+            fontSize: 22,
+        color: "#A8ABB3",
+        fontWeight: "400",
+        marginLeft:53
+        // alignSelf: "center",
+        // marginBottom:10,
+        // textTransform: "uppercase",
+        }
+      }>{newtitle}</Text>
     </Pressable>
+    <Image style={{
+                    marginLeft:200,
+                    marginTop:30
+                  }} source={require("../assets/Noti.png")}/>
               </View>
-                <View style={style.form2}>
-                    <Text style={style.label}>Name</Text>
+              <View style={style.form}>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
-                        style={style.input}
-                        placeholder="Enter your Name"
+                        style={style.input2}
+                        placeholder="Enter Hospital Name"
                         onChangeText={(name) =>pdata({name})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Email</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Email"
-                        onChangeText={(email) =>pdata({email})}
+                        placeholder="Address of the hospital"
+                        onChangeText={(Address) =>pdata({Address})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Phone no.</Text>
+                        <View style={{display:"flex",flexDirection:"row"}}>
+        <View style={style.iall}>
+        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+<TextInput
+    style={style.input4}
+    placeholder="Enter Date"
+    onChangeText={(date) =>pdata({date})}
+    // right={<TextInput.Icon name='eye'/>}
+    />
+    </View>
+    <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+
+                    <TextInput
+                        style={style.input7}
+                        placeholder="Enter Time"
+                        onChangeText={(time) =>pdata({time})}
+                        // right={<TextInput.Icon name='eye'/>}
+                        />
+                        </View>
+        </View>
+        </View>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Phone number"
-                        onChangeText={(phone) =>pdata({phone})}
+                        placeholder="Organ Required"
+                        onChangeText={(obname) =>pdata({obname})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Age</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
                     <TextInput
-                        style={style.input}
-                        placeholder="Enter your Age"
-                        onChangeText={(email) =>updatestate({email})}
+                        style={style.input1}
+                        placeholder="Write a Note"
+                        onChangeText={(Note) =>pdata({Note})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Gender</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Gender"
-                        onChangeText={(email) =>updatestate({email})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Organ Required</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter Organ required"
-                        onChangeText={(email) =>updatestate({email})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-            
+                        
                 </View>
               </>
             )
     }
         <SubmitButton
-              title="Send To Hospital"
+              title="Submit"
               size="sm"
               backgroundColor="#007bff"
               onPress={
-                  Bloodfindorgan
+                  Bloodreqorgan
                 }
                 />
                 </ScrollView> 
@@ -290,7 +345,7 @@ const style = StyleSheet.create({
     main:{
         display:"flex",
         flex:1,
-        // backgroundColor:"red"
+        backgroundColor:"white",
         // alignItems:"center"
         // padding:15,
         marginLeft:15
@@ -305,6 +360,20 @@ const style = StyleSheet.create({
         marginTop:60,
         // fontWeight:700
     },
+      // Style for iOS ONLY...
+  datePicker: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: 320,
+    height: 260,
+    display: 'flex',
+  },
+      text: {
+        textAlign: 'left',
+        width: 230,
+        fontSize: 16,
+        color : "#000"
+      },
     tinyLogo:{
         width:400,
         height: 200,
@@ -357,6 +426,13 @@ const style = StyleSheet.create({
         paddingVertical: 13,
         // paddingHorizontal: 12,
       }, 
+      btn:{
+        color:"#F9F9FF"
+      },
+      iall:{
+        display:"flex",
+        flexDirection:"row"
+      },
     submitButtonContainer: {
         elevation: 8,
         width: 390,
@@ -373,10 +449,11 @@ const style = StyleSheet.create({
         // paddingHorizontal: 12,
       }, 
       donorButtonText: {
-        fontSize: 15,
-        color: "black",
+        fontSize: 22,
+        color: "#A8ABB3",
         fontWeight: "400",
-        alignSelf: "center",
+        marginLeft:53
+        // alignSelf: "center",
         // marginBottom:10,
         // textTransform: "uppercase",
       },
@@ -403,12 +480,13 @@ const style = StyleSheet.create({
       },
       form: {
         // flex: 1,
-        padding:5,
+        // padding:,
         justifyContent: "flex-start",
         alignItems: "flex-start",
         // flexWrap:'wrap',
         // flexDirection:'colo'
         // paddingTop:-50
+        margin:10
       },
       label: {
         fontWeight: "400",
@@ -419,13 +497,58 @@ const style = StyleSheet.create({
         marginLeft:10
       },
       input: {
-        backgroundColor: "#f9f9ff",
+        backgroundColor: "#F9F9FF",
         width: 385,
         paddingLeft: 15
         ,
-        // marginLeft:-50,
-        height: 45,
-        borderRadius: 100,
+        // marginLeft:-50
+        fontSize:16,
+        marginTop:30,
+        height: 55,
+        // borderRadius: 100,
+      },
+      input1: {
+        backgroundColor: "#F9F9FF",
+        width: 385,
+        paddingLeft: 15,
+        // marginLeft:-50
+        fontSize:16,
+        marginTop:30,
+        height: 86,
+        // borderRadius: 100,
+      },
+      input2: {
+        backgroundColor: "#F9F9FF",
+        width: 385,
+        paddingLeft: 15
+        ,
+        // marginLeft:-50
+        fontSize:16,
+        marginTop:30,
+        height: 55,
+        // borderRadius: 100,
+      },
+      input4: {
+        backgroundColor: "#F9F9FF",
+        width: 185,
+        paddingLeft: 15
+        ,
+        // marginLeft:-50
+        fontSize:16,
+        marginTop:30,
+        height: 49,
+        // borderRadius: 100,
+      },
+      input7: {
+        backgroundColor: "#F9F9FF",
+        width: 185,
+        paddingLeft: 15
+        ,
+        marginLeft:200,
+        fontSize:16,
+        marginTop:27,
+        height: 49,
+        // borderRadius: 100,
       },
       form2:{
             // flex: 1,
@@ -440,4 +563,4 @@ const style = StyleSheet.create({
       }
 })
 
-export default HospitalOrganReq
+export default RequestOb

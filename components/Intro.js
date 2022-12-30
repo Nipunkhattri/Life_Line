@@ -9,7 +9,8 @@ import {
   Platform,
   KeyboardAvoidingView,
   TouchableHighlight,
-  Image,TouchableOpacity
+  Image,TouchableOpacity,
+  Alert
 } from "react-native";
 import CheckBox from 'expo-checkbox';
 import { NavigationActions, useNavigation } from '@react-navigation/native'
@@ -39,6 +40,18 @@ function Intro({navigation}) {
   }
   console.log(data);
   if(data!=null){
+    Alert.alert(
+      "Login",
+      "Login successfully",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
     navigation.navigate("Home");
   }
   else{
@@ -51,7 +64,7 @@ function Intro({navigation}) {
        behavior={Platform.OS == "ios" ? "padding" : "height"}
        keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
        enabled={Platform.OS === "ios" ? true : false}
-        style={{ flex: 1, padding: Platform.OS === "android" ? 30 : 0 ,overflow:"scroll",paddingTop:70}}
+        style={{ flex: 1,backgroundColor:"#FFFFFF", padding: Platform.OS === "android" ? 30 : 0 ,overflow:"scroll",paddingTop:70}}
       >
         <View style={style.heading}>
           <Text style={style.heading}>Welcome!</Text>
@@ -61,7 +74,7 @@ function Intro({navigation}) {
         </View>
         <View style={style.form}>
           <Text style={style.label}>Email</Text>
-          <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flex: 1, flexDirection: "row", alignItems: "center",backgroundColor:"#F9F9FF" }}>
             <TextInput
               style={style.input}
               placeholder="✉️    Enter your email"
@@ -84,18 +97,10 @@ function Intro({navigation}) {
           
         </View>
         <View style={style.sec}>
-          <View style={style.containall}>
-          <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={style.checkbox}
-        />
-          <Text style={style.txt}>
-          Remember me</Text>
+
             <Text style={style.txt}>Forget Password?</Text>
           </View>
-          </View>
-            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" marginTop="16"  onPress={handlelogin}/>
+            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff"  onPress={handlelogin}/>
       
             <Text style={{alignSelf:'center',marginTop:20,color:'#7d7d7d'}}>OR</Text>
         <View style={style.socialmedia}>
@@ -104,7 +109,7 @@ function Intro({navigation}) {
           <Image source={require("../assets/facebook.jpeg")}/>
         <View style={style.sigin}>
 
-        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("SignUp")}}>Already have an account .Sigin in</Text>
+        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("SignUp")}}>Don't have a account ... Register</Text>
         </View>
         </View>
       </KeyboardAvoidingView>
@@ -130,7 +135,12 @@ const style = StyleSheet.create({
   sec:{
     // borderWidth:3,
     display:"flex",
-    marginTop:40
+    // justifyContent
+    flexDirection:"row",
+    // marginTop:40
+    alignItems:"flex-end",
+    marginLeft:240,
+    marginBottom:10
   },
   containall: {
     display:"flex",
@@ -157,7 +167,7 @@ const style = StyleSheet.create({
   },
   form: {
     flex: 1,
-    padding:5,
+    // padding:5,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     // flexWrap:'wrap',

@@ -1,5 +1,5 @@
 // import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   View,
@@ -12,12 +12,14 @@ import {
   TouchableHighlight,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { showError } from '../utilits/helperFunction';
 import validator from '../utilits/validation';
 import { useDispatch,useSelector } from "react-redux";
 import { NavigationActions } from '@react-navigation/native'
-import { signup } from "../Redux/actions/auth";
+import { signup } from "../Redux/actions/auth"
+import { showMessage } from 'react-native-flash-message';
 // import CheckBox from "@react-native-community/checkbox";
 function CreateAccount({navigation}) {
   const Signin = ({ onPress, title }) => (
@@ -34,24 +36,44 @@ function CreateAccount({navigation}) {
   });
   const {name,email,password,phNum} = user;
   const updatestate = (data) => setUser(()=>({...user,...data}))
-  // const isValidData = () => {
-  //   const error = validator({
-  //       email,
-  //       password,
-  //       name,
-  //       phNum
-  //   })
-  //   if (error) {
-  //       showError(error)
-  //       return false
-  //   }
-  //   return true
-  // }
+
   const data = useSelector(state=>state.currentUserreducer);
-  const handleSignup = (e)=>{
+  console.log(data);
+  const handleSignup = ()=>{
+    if(name=='' || email=='' || password=='' || phNum==''){
+      return ;
+    }
+    if(phNum.length<10){
+      return ;
+    }
+    console.log(user);
       dispatch(signup((user)));
+      Alert.alert(
+        "Register",
+        "Registered successfully",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
     }
     if(data!=null){
+      Alert.alert(
+        "Register",
+        "Registered successfully",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
       navigation.navigate("login");
     }
     else{
@@ -66,6 +88,7 @@ function CreateAccount({navigation}) {
         enabled={Platform.OS === "ios" ? true : false}
         style={{
           flex: 1,
+          backgroundColor:"#FFFFFF",
           padding: Platform.OS === "android" ? 30 : 0,
           overflow: "scroll",
           paddingTop: 70,

@@ -22,7 +22,11 @@ import Home from "../../assets/Home";
 // import Location from "../../assets/Location";
 // import { style } from "deprecated-react-native-prop-types/DeprecatedTextPropTypes";
 function Footer() {
-  const navigation=useNavigation()
+  const navigation=useNavigation();
+  const navirequest = (e)=>{
+    e.preventDefault();
+    navigation.navigate("request");
+  }
   return (
     <View style={home2.footer}>
     <TouchableOpacity>
@@ -32,7 +36,7 @@ function Footer() {
     </TouchableOpacity>
     <TouchableOpacity      onPress={() => {
           console.log("hello");
-          navigation.navigate("DonorCat")
+          // navigation.navigate("DonorCat")
         }}>
       <View
         style={home2.FooterIcon}
@@ -41,12 +45,11 @@ function Footer() {
         <Image source={require("../../assets/Vector.png")}/>
       </View>
     </TouchableOpacity>
-    <TouchableOpacity>
+    <TouchableOpacity
+    onPress={navirequest}>
       <View
         style={home2.FooterIcon}
-        onPress={() => {
-          console.log("bell");
-        }}
+        
       >
         <Bell />
       </View>

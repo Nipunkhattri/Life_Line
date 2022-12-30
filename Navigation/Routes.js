@@ -14,6 +14,9 @@ import DonorCat from "../components/HomePage.js/DonorCat";
 import Hospage from "../components/HospitalPage";
 import login from "../components/Intro";
 import HospitalOrganReq from "../components/HospitalOrganReq";
+import RequestOb from "../components/RequestOb";
+import Request from "../components/Request";
+import RequestPage from "../components/RequestPage";
 // import  SignUp  from "../components/CreateAccount";
 
 const Stack = createNativeStackNavigator();
@@ -73,6 +76,21 @@ export default function Routes() {
           name="orgreq"
           options={{ headerShown: false }}
           component={HospitalOrganReq}
+        />
+        <Stack.Screen
+          name="request"
+          options={{ headerShown: false }}
+          component={RequestOb}
+        />
+        <Stack.Screen
+          name="people"
+          options={{ headerShown: false }}
+          component={Request}
+        />
+        <Stack.Screen
+          name="page"
+          options={{ headerShown: false }}
+          component={RequestPage}
         />
       </Stack.Navigator>
     </NavigationContainer>

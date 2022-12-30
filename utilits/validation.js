@@ -17,14 +17,14 @@ const checkMinLength = (val, minLength, key) => {
 }
 
 export default function (data) {
-    const { userName, email, password } = data
+    const { email, password, name , phNum } = data
 
-    if (userName !== undefined) {
-        let emptyValidationText = checkEmpty(userName, 'Please enter your user name')
+    if (name !== undefined) {
+        let emptyValidationText = checkEmpty(name, 'Please enter your user name')
         if (emptyValidationText !== '') {
             return emptyValidationText;
         } else {
-            let minLengthValidation = checkMinLength(userName, 3, 'userName')
+            let minLengthValidation = checkMinLength(name, 3, 'name')
             if (minLengthValidation !== '') {
                 return minLengthValidation
             }
@@ -49,6 +49,17 @@ export default function (data) {
             return emptyValidationText;
         } else {
             let minLengthValidation = checkMinLength(password, 6, 'password')
+            if (minLengthValidation !== '') {
+                return minLengthValidation
+            }
+        }
+    }
+    if (phNum !== undefined) {
+        let emptyValidationText = checkEmpty(phNum, 'Please enter your phnum')
+        if (emptyValidationText !== '') {
+            return emptyValidationText;
+        } else {
+            let minLengthValidation = checkMinLength(password, 10,'phone number')
             if (minLengthValidation !== '') {
                 return minLengthValidation
             }
