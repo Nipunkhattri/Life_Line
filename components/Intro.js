@@ -9,9 +9,13 @@ import {
   Platform,
   KeyboardAvoidingView,
   TouchableHighlight,
-  Image,TouchableOpacity
+  Image,TouchableOpacity,
+  Alert
 } from "react-native";
 import CheckBox from 'expo-checkbox';
+import { NavigationActions, useNavigation } from '@react-navigation/native'
+import { login } from "../Redux/actions/auth";
+import { useDispatch, useSelector } from "react-redux";
 // import { Checkbox } from "react-native-paper";
 function Intro({navigation}) {
   const Signin=({onPress,title})=>(
@@ -19,6 +23,40 @@ function Intro({navigation}) {
     <Text style={style.appButtonText}>{title}</Text>
   </TouchableHighlight> )
    const [isSelected, setSelection] = useState(false);
+   const dispatch = useDispatch();
+   const [loginuser, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  // const {name,email,password,phNum} = user;
+  const updatestate = (data) => setUser(()=>({...loginuser,...data}))
+
+  const data = useSelector(state=>state.currentUserreducer);
+  console.log(data);
+  const handlelogin = ()=>{
+    // console.log(loginuser);
+    console.log(data);
+    dispatch(login((loginuser)));
+  }
+  console.log(data);
+  if(data!=null){
+    Alert.alert(
+      "Login",
+      "Login successfully",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+    navigation.navigate("Home");
+  }
+  else{
+    navigation.navigate("login")
+  }
 
   return (
     <>
@@ -26,7 +64,7 @@ function Intro({navigation}) {
        behavior={Platform.OS == "ios" ? "padding" : "height"}
        keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 20}
        enabled={Platform.OS === "ios" ? true : false}
-        style={{ flex: 1, padding: Platform.OS === "android" ? 30 : 0 ,overflow:"scroll",paddingTop:70}}
+        style={{ flex: 1,backgroundColor:"#FFFFFF", padding: Platform.OS === "android" ? 30 : 0 ,overflow:"scroll",paddingTop:70}}
       >
         <View style={style.heading}>
           <Text style={style.heading}>Welcome!</Text>
@@ -36,11 +74,11 @@ function Intro({navigation}) {
         </View>
         <View style={style.form}>
           <Text style={style.label}>Email</Text>
-          <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flex: 1, flexDirection: "row", alignItems: "center",backgroundColor:"#F9F9FF" }}>
             <TextInput
-
               style={style.input}
               placeholder="✉️    Enter your email"
+              onChangeText={(email) =>updatestate({email})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -51,6 +89,7 @@ function Intro({navigation}) {
             <TextInput
               style={style.input}
               placeholder="🔐   Enter your Password"
+              onChangeText={(password) =>updatestate({password})}
               // right={<TextInput.Icon name='eye'/>}
             />
 
@@ -58,18 +97,10 @@ function Intro({navigation}) {
           
         </View>
         <View style={style.sec}>
-          <View style={style.containall}>
-          <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={style.checkbox}
-        />
-          <Text style={style.txt}>
-          Remember me</Text>
+
             <Text style={style.txt}>Forget Password?</Text>
           </View>
-          </View>
-            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff" marginTop="16"  onPress={()=>{navigation.navigate("otp")}}/>
+            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff"  onPress={handlelogin}/>
       
             <Text style={{alignSelf:'center',marginTop:20,color:'#7d7d7d'}}>OR</Text>
         <View style={style.socialmedia}>
@@ -78,7 +109,7 @@ function Intro({navigation}) {
           <Image source={require("../assets/facebook.jpeg")}/>
         <View style={style.sigin}>
 
-        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("create")}}>Already have an account .Sigin in</Text>
+        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("SignUp")}}>Don't have a account ... Register</Text>
         </View>
         </View>
       </KeyboardAvoidingView>
@@ -104,7 +135,12 @@ const style = StyleSheet.create({
   sec:{
     // borderWidth:3,
     display:"flex",
-    marginTop:40
+    // justifyContent
+    flexDirection:"row",
+    // marginTop:40
+    alignItems:"flex-end",
+    marginLeft:240,
+    marginBottom:10
   },
   containall: {
     display:"flex",
@@ -131,7 +167,7 @@ const style = StyleSheet.create({
   },
   form: {
     flex: 1,
-    padding:5,
+    // padding:5,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     // flexWrap:'wrap',

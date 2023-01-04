@@ -10,24 +10,20 @@ import LandingPage from './components/LandingPage';
 import DonorCat from './components/HomePage.js/DonorCat';
 import HomePage from './components/HomePage.js/HomePage';
 import Otp from './components/Otp';
+import { Provider, useSelector } from 'react-redux';
+import store from './store';
+import 'localstorage-polyfill'; 
+import MainStack from './Navigation/MainStack';
+import AuthStack from './Navigation/AuthStack';
+import Routes from './Navigation/Routes';
 const App = () => {
 
-  const Stack = createNativeStackNavigator();
-
+  
   return (
     <>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Landing' >
-          <Stack.Screen name='Landing' options={{ headerShown: false }}  component={LandingPage}/>
-          <Stack.Screen name='First' options={{ headerShown: false }}  component={First}/>
-          <Stack.Screen name='Second'options={{ headerShown: false }}   component={Second}/>
-          <Stack.Screen name='Intro' options={{ headerShown: false }}  component={Intro}/>
-          <Stack.Screen name='create'options={{ headerShown: false }}   component={CreateAccount}/>
-          <Stack.Screen name='otp'options={{ headerShown: false }}   component={Otp}/>
-          <Stack.Screen name='Home'options={{ headerShown: false }}   component={HomePage}/>
-          <Stack.Screen name='DonorCat'  component={DonorCat} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <Routes/>
+    </Provider>
     </>
   )
 }

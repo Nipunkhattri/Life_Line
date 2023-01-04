@@ -25,6 +25,8 @@ import Footer from "./Footer";
 import TopBar from "./TopBar";
 // import { TextInput } from "react-native-paper";
 import { styles } from "react-native-image-slider-banner/src/style";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 const DonorButton = ({ onPress, title }) => (
   <TouchableOpacity onPress={onPress} style={home.donorButtonContainer}>
     <Text style={home.donorButtonText}>{title}</Text>
@@ -80,11 +82,18 @@ const data =[
     Reviews:"1455 reviews"
   }
 ]
-
 function HomePage() {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState(data);
   const [masterDataSource, setMasterDataSource] = useState(data)
+  
+  const navigation = useNavigation()
+
+
+  const navigatepage = (e) =>{
+    e.preventDefault();
+    navigation.navigate("Hospage");
+  }
 
   const item = ({item}) =>{
     return(
@@ -94,7 +103,7 @@ function HomePage() {
         <Image source={require('../../assets/logo1.png')}/>
                         </View>
       <View style={home1.details}>
-        <Text style={home1.HospitalName}>{item.name}
+        <Text style={home1.HospitalName} onPress={navigatepage}>{item.name}
         </Text>
         <Icon  style={home1.Fav}/>
           <Location style={home1.Location}/>
@@ -130,7 +139,8 @@ function HomePage() {
       setSearch(text);
     }
   };
-  
+  const user = useSelector(state=>state.currentUserreducer);
+  console.log(user);
   return (
     <>
       <SafeAreaView style={home.droidSafeArea}>
@@ -142,7 +152,7 @@ function HomePage() {
                 source={require("../../assets/google.png")}
                 style={home.ProfileImage}
               />{" "}
-              Ishan Gupta
+              {user.result.name}
             </Text>
             <DonorButton
               title="Become a donor"
@@ -164,6 +174,7 @@ function HomePage() {
             onChangeText={(text)=>{
               searchName(text);
             }}/>
+            <Image style={home.icon} source={require("../../assets/search_icon.png")}/>
             <View style={{ flex: 0.1,marginBottom:15,marginTop:15}}>
               <Slider />
             </View>
@@ -197,23 +208,34 @@ function HomePage() {
 
 export default HomePage;
 const home = StyleSheet.create({
+  icon:{
+    height:30,
+    width:30,
+// borderWidth:2,
+color:"gray",
+position:"absolute",
+top:18,
+left:32
+  },
   ProfileImage: {
     width: 40,
     height: 40,
     // paddingRight:40,
   },
   textInputStyle: {
-    height: 40,
+    // height: 40,
+    width: 368,
+height: 45,
     borderWidth: 1,
-    paddingLeft: 20,
+    paddingLeft: 28,
     marginTop:10,
-    margin: 5,
+    marginLeft: 30,
     borderRadius:22,
     borderTopEndRadius:22,
     borderTopStartRadius:22,
     // borderBottomWidth:0,
-    borderColor: '#009688',
-    backgroundColor: '#FFFFFF',
+    borderColor: 'white',
+    backgroundColor: '#F9F9FF',
   },
   donorButtonContainer: {
     elevation: 8,
@@ -275,8 +297,6 @@ const home = StyleSheet.create({
   },
   droidSafeArea: {
     flex: 1,
-    // backgroundColor: npLBlue,
-    // padding:10,
     paddingTop: Platform.OS === "android" ? 25 : 0,
   },
 

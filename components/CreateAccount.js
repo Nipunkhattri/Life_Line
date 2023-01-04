@@ -1,4 +1,5 @@
-import React from "react";
+// import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   View,
@@ -11,7 +12,14 @@ import {
   TouchableHighlight,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+import { showError } from '../utilits/helperFunction';
+import validator from '../utilits/validation';
+import { useDispatch,useSelector } from "react-redux";
+import { NavigationActions } from '@react-navigation/native'
+import { signup } from "../Redux/actions/auth"
+import { showMessage } from 'react-native-flash-message';
 // import CheckBox from "@react-native-community/checkbox";
 function CreateAccount({navigation}) {
   const Signin = ({ onPress, title }) => (
@@ -19,6 +27,58 @@ function CreateAccount({navigation}) {
       <Text style={styles.appButtonText}>{title}</Text>
     </TouchableHighlight>
   );
+  const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phNum:""
+  });
+  const {name,email,password,phNum} = user;
+  const updatestate = (data) => setUser(()=>({...user,...data}))
+
+  const data = useSelector(state=>state.currentUserreducer);
+  console.log(data);
+  const handleSignup = ()=>{
+    if(name=='' || email=='' || password=='' || phNum==''){
+      return ;
+    }
+    if(phNum.length<10){
+      return ;
+    }
+    console.log(user);
+      dispatch(signup((user)));
+      Alert.alert(
+        "Register",
+        "Registered successfully",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+    }
+    if(data!=null){
+      Alert.alert(
+        "Register",
+        "Registered successfully",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+      navigation.navigate("login");
+    }
+    else{
+      navigation.navigate("SignUp");
+    }
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   return (
     <>
@@ -28,6 +88,7 @@ function CreateAccount({navigation}) {
         enabled={Platform.OS === "ios" ? true : false}
         style={{
           flex: 1,
+          backgroundColor:"#FFFFFF",
           padding: Platform.OS === "android" ? 30 : 0,
           overflow: "scroll",
           paddingTop: 70,
@@ -41,7 +102,9 @@ function CreateAccount({navigation}) {
           {/* <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}> */}
           <TextInput
             style={styles.input}
+            // value={fullname} 
             placeholder="Enter your full name"
+            onChangeText={(name) =>updatestate({name})}
             // right={<TextInput.Icon name='eye'/>}
           />
           {/* </View> */}
@@ -49,7 +112,9 @@ function CreateAccount({navigation}) {
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             <TextInput
               style={styles.input}
+              // value={user.password}
               placeholder="🔐   Enter your Password"
+              onChangeText={(password) =>updatestate({password})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -59,6 +124,7 @@ function CreateAccount({navigation}) {
             <TextInput
               style={styles.input}
               placeholder="🔐   Enter your Email"
+              onChangeText={(email) =>updatestate({email})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -67,6 +133,7 @@ function CreateAccount({navigation}) {
             <TextInput
               style={styles.input}
               placeholder="🔐   Enter your mobile number"
+              onChangeText={(phNum) =>updatestate({phNum})}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -75,9 +142,9 @@ function CreateAccount({navigation}) {
           title="Sigi in"
           size="sm"
           backgroundColor="#007bff"
-          onPress={() => {
-            console.log("signin");
-          }}
+          onPress={
+            handleSignup
+          }
         />
 
         <Text style={{ alignSelf: "center", marginTop: 20, color: "#7d7d7d" }}>
@@ -88,7 +155,7 @@ function CreateAccount({navigation}) {
           <Image source={require("../assets/linkedin.jpeg")} />
           <Image source={require("../assets/facebook.jpeg")} />
           <View style={styles.sigin}>
-            <Text style={{ color: "#7d7d7d", fontSize: 14 }} onPress={()=>{navigation.navigate("Intro")}}>
+            <Text style={{ color: "#7d7d7d", fontSize: 14 }} onPress={()=>{navigation.navigate("login")}}>
               Already have an account .Sigin in
             </Text>
           </View>
