@@ -3,12 +3,11 @@ import React, { useState } from 'react'
 import { View ,Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput,Pressable} from 'react-native'
 import { useDispatch } from 'react-redux';
 import { findorgans } from "../Redux/actions/auth";
-// import { TextInput } from 'react-native-paper';
-// const DonorButton = ({ onPress, title }) => (
-//     <TouchableOpacity onPress={onPress} style={style.donorButtonContainer}>
-//       <Text style={style.donorButtonText}>{title}</Text>
-//     </TouchableOpacity>
-// );
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 const BloodButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={style.bloodButtonContainer}>
       <Text style={style.bloodButtonText}>{title}</Text>
@@ -24,7 +23,7 @@ const BloodBankButton = ({ onPress, title }) => (
       <Text style={style.submitButtonText}>{title}</Text>
     </TouchableOpacity>
 );
-const HospitalOrganReq = () => {
+const HospitalOrganReq = ({navigation}) => {
     const [page,setpage]=useState('true');
     const dispatch = useDispatch
     const [find,setfind]= useState({
@@ -60,15 +59,14 @@ const HospitalOrganReq = () => {
         <ScrollView style={style.ScrollView}>
         <Text style={style.txt}>Apollo Hospital</Text>
         <Image style={style.tinyLogo} source={require('../assets/hospital.png')}/>
-          {console.log(page)}
           {
               page=='true'?(
                   <>
             <View style={style.btndiv}>
             <Pressable  style={{
                elevation: 8,
-               width: 160,
-               height: 50,
+               width: responsiveWidth(36),
+               height: responsiveHeight(5.7),
                backgroundColor: "white",
                color:"black",
                // borderRadius: 100,
@@ -84,10 +82,10 @@ const HospitalOrganReq = () => {
     </Pressable>
     <Pressable  style={{
              elevation: 8,
-             width: 170,
-             height: 52,
+             width: responsiveWidth(36),
+               height: responsiveHeight(5.9),
              position:"absolute",
-             left:132,
+             left:responsiveWidth(30),
              backgroundColor: "#2AA05D",
              borderRadius: 100,
              marginTop:20,
@@ -176,8 +174,8 @@ const HospitalOrganReq = () => {
               <View style={style.btndiv}>
               <Pressable  style={{
                elevation: 8,
-               width: 160,
-               height: 50,
+               width: responsiveWidth(36),
+               height: responsiveHeight(5.9),
                backgroundColor: "#2AA05D",
                color:"black",
                // borderRadius: 100,
@@ -193,10 +191,10 @@ const HospitalOrganReq = () => {
     </Pressable>
     <Pressable  style={{
              elevation: 8,
-             width: 170,
-             height: 52,
+             width: responsiveWidth(36),
+               height: responsiveHeight(5.9),
              position:"absolute",
-             left:132,
+             left:  responsiveWidth(30),
              backgroundColor: "white",
              borderRadius: 100,
              marginTop:20,
@@ -278,9 +276,9 @@ const HospitalOrganReq = () => {
               title="Send To Hospital"
               size="sm"
               backgroundColor="#007bff"
-              onPress={
-                  Bloodfindorgan
-                }
+              onPress={()=>{
+                navigation.navigate("organdetailssend")
+              }}
                 />
                 </ScrollView> 
     </View>
@@ -299,44 +297,44 @@ const style = StyleSheet.create({
         display:"none"
     },
     txt:{
-        fontSize:30,
+        fontSize:responsiveFontSize(3.5),
         color:"green",
         textAlign:"center",
-        marginTop:60,
+        marginTop:responsiveWidth(10),
         // fontWeight:700
     },
     tinyLogo:{
-        width:400,
-        height: 200,
+        width:responsiveWidth(90),
+        height: responsiveHeight(23),
         borderWidth:3,
         flex:0.85,
         borderRadius:23,
         marginTop:20,
     },
-    donorButtonContainer: {
-        elevation: 8,
-        width: 160,
-        height: 50,
-        // backgroundColor: "white",
-        color:"black",
-        // borderRadius: 100,
-        borderBottomLeftRadius:20,
-        borderTopLeftRadius:20,
-        marginTop:20,
-        // marginTop: 3,
-        // alignSelf:''
-        paddingVertical: 13,
-        // paddingHorizontal: 12,
-      }, 
+    // donorButtonContainer: {
+    //     elevation: 8,
+    //     width: responsiveWidth(20),
+    //     height: responsiveHeight(23),
+    //     // backgroundColor: "white",
+    //     color:"black",
+    //     // borderRadius: 100,
+    //     borderBottomLeftRadius:20,
+    //     borderTopLeftRadius:20,
+    //     marginTop:20,
+    //     // marginTop: 3,
+    //     // alignSelf:''
+    //     paddingVertical: 13,
+    //     // paddingHorizontal: 12,
+    //   }, 
       bankButtonContainer:{
         elevation: 8,
-        width: 390,
-        height: 52,
+        width: responsiveWidth(90),
+        height: responsiveHeight(6),
         // position:"absolute",
         left:3,
         backgroundColor: "#2AA05D",
         borderRadius: 100,
-        marginTop:20,
+        marginTop:responsiveWidth(4),
         // marginTop: 3,
         // marginBottom:10,
         // alignSelf:''
@@ -345,8 +343,8 @@ const style = StyleSheet.create({
       },
     bloodButtonContainer: {
         elevation: 8,
-        width: 170,
-        height: 52,
+        width: responsiveWidth(90),
+        height:  responsiveHeight(6),
         position:"absolute",
         left:132,
         backgroundColor: "#2AA05D",
@@ -359,13 +357,13 @@ const style = StyleSheet.create({
       }, 
     submitButtonContainer: {
         elevation: 8,
-        width: 390,
-        height: 52,
+        width: responsiveWidth(90),
+        height:  responsiveHeight(6),
         // position:"absolute",
         left:3,
         backgroundColor: "#2AA05D",
         borderRadius: 100,
-        marginTop:30,
+        marginTop:responsiveWidth(5),
         // marginTop: 3,
         marginBottom:10,
         // alignSelf:''
@@ -373,7 +371,7 @@ const style = StyleSheet.create({
         // paddingHorizontal: 12,
       }, 
       donorButtonText: {
-        fontSize: 15,
+        fontSize: responsiveFontSize(2.3),
         color: "black",
         fontWeight: "400",
         alignSelf: "center",
@@ -381,7 +379,7 @@ const style = StyleSheet.create({
         // textTransform: "uppercase",
       },
       bloodButtonText: {
-        fontSize: 15,
+        fontSize:  responsiveFontSize(2.3),
         color: "#fff",
         fontWeight: "400",
         alignSelf: "center",
@@ -389,7 +387,7 @@ const style = StyleSheet.create({
         // textTransform: "uppercase",
       },
       submitButtonText: {
-        fontSize: 15,
+        fontSize:  responsiveFontSize(1.9),
         color: "#fff",
         fontWeight: "400",
         alignSelf: "center",
@@ -412,7 +410,7 @@ const style = StyleSheet.create({
       },
       label: {
         fontWeight: "400",
-        fontSize: 20,
+        fontSize:  responsiveFontSize(2.2),
         color: "#a8abb3",
         paddingBottom:10,
         paddingTop:40,
@@ -420,7 +418,7 @@ const style = StyleSheet.create({
       },
       input: {
         backgroundColor: "#f9f9ff",
-        width: 385,
+        width: responsiveWidth(90),
         paddingLeft: 15
         ,
         // marginLeft:-50,

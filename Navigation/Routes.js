@@ -17,6 +17,7 @@ import HospitalOrganReq from "../components/HospitalOrganReq";
 import RequestOb from "../components/RequestOb";
 import Request from "../components/Request";
 import RequestPage from "../components/RequestPage";
+import HospitalDetailsubmit from "../components/HospitalDetailsubmit";
 // import  SignUp  from "../components/CreateAccount";
 
 const Stack = createNativeStackNavigator();
@@ -91,6 +92,11 @@ export default function Routes() {
           name="page"
           options={{ headerShown: false }}
           component={RequestPage}
+        />
+        <Stack.Screen
+          name="organdetailssend"
+          options={{ headerShown: false }}
+          component={HospitalDetailsubmit}
         />
       </Stack.Navigator>
     </NavigationContainer>

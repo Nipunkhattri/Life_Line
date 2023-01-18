@@ -12,6 +12,11 @@ import {
   Image,TouchableOpacity,
   Alert
 } from "react-native";
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 import CheckBox from 'expo-checkbox';
 import { NavigationActions, useNavigation } from '@react-navigation/native'
 import { login } from "../Redux/actions/auth";
@@ -88,6 +93,7 @@ function Intro({navigation}) {
           >
             <TextInput
               style={style.input}
+              secureTextEntry={true} 
               placeholder="🔐   Enter your Password"
               onChangeText={(password) =>updatestate({password})}
               // right={<TextInput.Icon name='eye'/>}
@@ -100,7 +106,7 @@ function Intro({navigation}) {
 
             <Text style={style.txt}>Forget Password?</Text>
           </View>
-            <Signin title="Sigi in" size="sm"  backgroundColor="#007bff"  onPress={handlelogin}/>
+            <Signin title="Sign in" size="sm"  backgroundColor="#007bff"  onPress={handlelogin}/>
       
             <Text style={{alignSelf:'center',marginTop:20,color:'#7d7d7d'}}>OR</Text>
         <View style={style.socialmedia}>
@@ -109,7 +115,7 @@ function Intro({navigation}) {
           <Image source={require("../assets/facebook.jpeg")}/>
         <View style={style.sigin}>
 
-        <Text style={{color:'#7d7d7d',fontSize:14}} onPress={()=>{navigation.navigate("SignUp")}}>Don't have a account ... Register</Text>
+        <Text style={{color:'#7d7d7d',fontSize:responsiveFontSize(1.9)}} onPress={()=>{navigation.navigate("SignUp")}}>Don't have a account ... Register</Text>
         </View>
         </View>
       </KeyboardAvoidingView>
@@ -125,6 +131,7 @@ const style = StyleSheet.create({
       width:30
   },
   txt:{
+    fontSize:responsiveFontSize(1.6),
     marginTop:52
   },
   checkbox:{
@@ -139,7 +146,7 @@ const style = StyleSheet.create({
     flexDirection:"row",
     // marginTop:40
     alignItems:"flex-end",
-    marginLeft:240,
+    marginLeft:responsiveWidth(50),
     marginBottom:10
   },
   containall: {
@@ -154,7 +161,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     // backgroundColor:'tomato',
     // paddingTop:20,
-    fontSize: 40,
+    fontSize:responsiveFontSize(5),
     fontWeight: "800",
   },
   subheading: {
@@ -176,16 +183,15 @@ const style = StyleSheet.create({
   },
   label: {
     fontWeight: "400",
-    fontSize: 20,
+    fontSize:responsiveFontSize(2),
     color: "#a8abb3",
-    paddingBottom:40,
+    marginBottom:40,
     paddingTop:40
   },
   input: {
     backgroundColor: "#f9f9ff",
-    width: 345,
-    paddingLeft: 15
-    ,
+    width:responsiveWidth(90),
+    paddingLeft: 15,
     // marginLeft:-50,
     height: 45,
     borderRadius: 100,
@@ -201,7 +207,7 @@ const style = StyleSheet.create({
   button:{
     flex:1,
     backgroundColor:"#2aa05d",
-    width:280,
+    width:responsiveWidth(60),
     height:48,
     justifyContent:'center',
     alignItems:'center',
@@ -213,16 +219,16 @@ const style = StyleSheet.create({
     alignSelf:'center',
     justifyContent:'space-between',
     marginTop:20,
-    width:150,
+    width:responsiveWidth(30),
     flexWrap:'wrap'
   },sigin:{
-    width:250,
+    width:responsiveWidth(100),
     marginTop:30,
-    marginLeft:-20,
+    marginLeft:-50,
   },
   appButtonContainer: {
     elevation: 8,
-    width:250,
+    width:responsiveWidth(50),
     backgroundColor: "#2AA05D",
     borderRadius: 20,
     alignSelf:'center',
@@ -230,7 +236,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 12,
   },
   appButtonText: {
-    fontSize: 18,
+    fontSize:responsiveFontSize(1.9),
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",

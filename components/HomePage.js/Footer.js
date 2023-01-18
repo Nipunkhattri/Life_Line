@@ -49,9 +49,8 @@ function Footer() {
     onPress={navirequest}>
       <View
         style={home2.FooterIcon}
-        
       >
-        <Bell />
+       <Image source={require("../../assets/req.png")}/>
       </View>
     </TouchableOpacity>
     <TouchableOpacity>
@@ -78,10 +77,11 @@ const home2=StyleSheet.create({
     position: "absolute",
     bottom: 0,
     flex: 0.4,
-    borderWidth:2,
+    borderWidth:1,
+    borderColor:"gray",
     borderTopEndRadius:12,
     borderTopLeftRadius:12,
-    backgroundColor:"black",
+    backgroundColor:"white",
     justifyContent: "space-evenly",
     width: "100%",
     height: 50,

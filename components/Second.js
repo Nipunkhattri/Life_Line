@@ -1,6 +1,10 @@
 import React from 'react'
 import { Text,View,StyleSheet,Button ,Image,borderWidth,Pressable, TouchableOpacity} from 'react-native'
-
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const AppButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
@@ -47,14 +51,14 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
         borderRadius: 15 / 2,
-        backgroundColor: '#2AA05D',
+        backgroundColor: '#D9D9D9',
         marginBottom:20
       },
     CircleShape2: {
         width: 10,
         height: 10,
         borderRadius: 15 / 2,
-        backgroundColor: '#D9D9D9',
+        backgroundColor: '#2AA05D',
         marginBottom:20
       },
     main:{
@@ -66,35 +70,35 @@ const styles = StyleSheet.create({
         flex:1
     },
     tinyLogo: {
-        width: 300,
+      width:responsiveWidth(80),
         height: 300,
         borderWidth:3,
         flex:0.4
     },
     text:{
-        fontSize:32,
+      fontSize:responsiveFontSize(3.3),
         flexWrap:"wrap",
         lineHeight:43,
-        width:330,
+        width:responsiveWidth(80),
         weight:600,
         height:144,
-        flex:0.18,
+        flex:0.16,
         color: "#555B63",
         marginTop:30,
         textAlign:"center"
     },
     stext:{
-        fontSize:20,
+      fontSize:responsiveFontSize(2.4),
         color:"#A8ABB3",
         flexWrap:"wrap",
         width:327,
-        flex:0.16,
+        flex:0.13,
         // borderWidth:5,
         textAlign:"center"
     },
     appButtonContainer: {
         elevation: 8,
-        width:250,
+        width:responsiveWidth(50),
         backgroundColor: "#2AA05D",
         borderRadius: 20,
         paddingVertical: 10,
