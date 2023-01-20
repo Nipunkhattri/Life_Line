@@ -2,6 +2,11 @@
 import React, { useState } from 'react'
 import { View ,Text,StyleSheet,Image,ScrollView,TouchableOpacity,TextInput,Pressable,Button} from 'react-native'
 import { useDispatch } from 'react-redux';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 import { findorgans } from "../Redux/actions/auth";
 // import DatePicker from '@react-native-community/datetimepicker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -86,8 +91,8 @@ const RequestOb = ({navigation}) => {
             <View style={style.btndiv}>
             <Pressable  style={{
                elevation: 8,
-               width: 190,
-               height: 60,
+               width: responsiveWidth(36),
+               height: responsiveHeight(6.4),
                backgroundColor: "white",
                color:"black",
                // borderRadius: 100,
@@ -101,10 +106,10 @@ const RequestOb = ({navigation}) => {
             }} onPress={Organfind}>
       <Text style={
         {
-            fontSize: 22,
+          fontSize: responsiveFontSize(2.4),
             color: "#A8ABB3",
             fontWeight: "400",
-            marginLeft:53
+            marginLeft:43
             // alignSelf: "center",
             // marginBottom:10,
             // textTransform: "uppercase",
@@ -113,10 +118,10 @@ const RequestOb = ({navigation}) => {
     </Pressable>
     <Pressable  style={{
              elevation: 8,
-             width: 170,
-             height: 62,
+             width: responsiveWidth(36),
+             height: responsiveHeight(6.5),
              position:"absolute",
-             left:132,
+             left:responsiveWidth(30),
              backgroundColor: "#2AA05D",
              borderRadius: 100,
              marginTop:20,
@@ -126,12 +131,12 @@ const RequestOb = ({navigation}) => {
              // paddingHorizontal: 12,
             }} onPress={Organfind}>
       <Text style={{
-         fontSize: 22,
+         fontSize: responsiveFontSize(2.4),
          color: "white",
          fontWeight: "400",
-         marginLeft:53
+         marginLeft:53,
          // alignSelf: "center",
-         // marginBottom:10,
+        //  marginBottom:10,
          // textTransform: "uppercase",
       }}>{newtitle}</Text>
     </Pressable>
@@ -139,8 +144,8 @@ const RequestOb = ({navigation}) => {
       // backgroundColor:"green"
     }} onPress={()=>{navigation.navigate("people")}} >
         <Image style={{
-          marginLeft:170,
-          marginTop:30
+             marginLeft:responsiveWidth(46),
+             marginTop:responsiveWidth(8),
         }} source={require("../assets/Noti.png")}/>
         </TouchableOpacity>
             </View>
@@ -211,8 +216,8 @@ const RequestOb = ({navigation}) => {
               <View style={style.btndiv}>
               <Pressable  style={{
                elevation: 8,
-               width: 160,
-               height: 62,
+               width: responsiveWidth(36),
+               height: responsiveHeight(6.4),
                backgroundColor: "#2AA05D",
                color:"black",
                // borderRadius: 100,
@@ -226,10 +231,10 @@ const RequestOb = ({navigation}) => {
             }} onPress={Organfind}>
       <Text style={
         {
-            fontSize: 22,
+        fontSize: responsiveFontSize(2.4),
         color: "white",
         fontWeight: "400",
-        marginLeft:53
+        marginLeft:43
         // alignSelf: "center",
         // marginBottom:10,
         // textTransform: "uppercase",
@@ -238,10 +243,10 @@ const RequestOb = ({navigation}) => {
     </Pressable>
     <Pressable  style={{
              elevation: 8,
-             width: 160,
-             height: 62,
+             width: responsiveWidth(36),
+               height: responsiveHeight(6.4),
              position:"absolute",
-             left:132,
+            left:responsiveWidth(30),
              backgroundColor: "white",
              borderRadius: 100,
              marginTop:20,
@@ -252,7 +257,7 @@ const RequestOb = ({navigation}) => {
             }} onPress={Bloodfind}>
       <Text style={
         {
-            fontSize: 22,
+          fontSize: responsiveFontSize(2.4),
         color: "#A8ABB3",
         fontWeight: "400",
         marginLeft:53
@@ -263,8 +268,8 @@ const RequestOb = ({navigation}) => {
       }>{newtitle}</Text>
     </Pressable>
     <Image style={{
-                    marginLeft:200,
-                    marginTop:30
+                    marginLeft:responsiveWidth(46),
+                    marginTop:responsiveWidth(8),
                   }} source={require("../assets/Noti.png")}/>
               </View>
               <View style={style.form}>
@@ -354,10 +359,10 @@ const style = StyleSheet.create({
         display:"none"
     },
     txt:{
-        fontSize:30,
+        fontSize:responsiveFontSize(3),
         color:"green",
         textAlign:"center",
-        marginTop:60,
+        marginTop:responsiveWidth(10),
         // fontWeight:700
     },
       // Style for iOS ONLY...
@@ -370,7 +375,7 @@ const style = StyleSheet.create({
   },
       text: {
         textAlign: 'left',
-        width: 230,
+        width: responsiveWidth(53),
         fontSize: 16,
         color : "#000"
       },
@@ -435,10 +440,10 @@ const style = StyleSheet.create({
       },
     submitButtonContainer: {
         elevation: 8,
-        width: 390,
+        width: responsiveWidth(90),
         height: 52,
         // position:"absolute",
-        left:3,
+        left:responsiveWidth(3),
         backgroundColor: "#2AA05D",
         borderRadius: 100,
         marginTop:30,
@@ -466,7 +471,7 @@ const style = StyleSheet.create({
         // textTransform: "uppercase",
       },
       submitButtonText: {
-        fontSize: 15,
+        fontSize: responsiveFontSize(2.2),
         color: "#fff",
         fontWeight: "400",
         alignSelf: "center",
@@ -490,7 +495,7 @@ const style = StyleSheet.create({
       },
       label: {
         fontWeight: "400",
-        fontSize: 20,
+        fontSize: responsiveFontSize(7),
         color: "#a8abb3",
         paddingBottom:10,
         paddingTop:40,
@@ -498,57 +503,55 @@ const style = StyleSheet.create({
       },
       input: {
         backgroundColor: "#F9F9FF",
-        width: 385,
-        paddingLeft: 15
-        ,
+        width: responsiveWidth(90),
+        paddingLeft: 15,
         // marginLeft:-50
-        fontSize:16,
+        fontSize:responsiveFontSize(2),
         marginTop:30,
-        height: 55,
-        // borderRadius: 100,
+        height: responsiveHeight(6),
+        borderRadius: 100,
       },
       input1: {
         backgroundColor: "#F9F9FF",
-        width: 385,
+        width: responsiveWidth(90),
         paddingLeft: 15,
         // marginLeft:-50
-        fontSize:16,
+        fontSize:responsiveFontSize(2),
         marginTop:30,
         height: 86,
         // borderRadius: 100,
       },
       input2: {
         backgroundColor: "#F9F9FF",
-        width: 385,
+        width: responsiveWidth(90),
         paddingLeft: 15
         ,
         // marginLeft:-50
-        fontSize:16,
+        fontSize:responsiveFontSize(2),
         marginTop:30,
         height: 55,
-        // borderRadius: 100,
+        borderRadius: 100,
       },
       input4: {
         backgroundColor: "#F9F9FF",
-        width: 185,
-        paddingLeft: 15
-        ,
+        width: responsiveWidth(45),
+        paddingLeft: 15,
         // marginLeft:-50
-        fontSize:16,
+        fontSize:responsiveFontSize(2),
         marginTop:30,
         height: 49,
-        // borderRadius: 100,
+        borderRadius: 100,
       },
       input7: {
         backgroundColor: "#F9F9FF",
-        width: 185,
+        width: responsiveWidth(45),
         paddingLeft: 15
         ,
-        marginLeft:200,
-        fontSize:16,
+        marginLeft:responsiveWidth(47),
+        fontSize:responsiveFontSize(2),
         marginTop:27,
         height: 49,
-        // borderRadius: 100,
+        borderRadius: 100,
       },
       form2:{
             // flex: 1,

@@ -17,7 +17,7 @@ const RequestList = () => {
             <Text style={requestlist.distance}>0.9km</Text>
         </View>
         <TouchableHighlight onPress={()=>{navigation.navigate("page")}}>
-        <View style={requestlist.button}><Text style={{color:"white"}}>Confirm</Text></View>
+        <View style={requestlist.button}><Text style={{color:"white"}}>Accept</Text></View>
         </TouchableHighlight>
     </View>
   )
@@ -31,7 +31,7 @@ const requestlist=StyleSheet.create({
         padding:5,
         marginLeft:20,
         flexDirection:"row",
-        backgroundColor:"white",
+        // backgroundColor:"green",
         width:responsiveWidth(75),
         height:responsiveHeight(8),
     },
@@ -43,18 +43,18 @@ const requestlist=StyleSheet.create({
         height:responsiveHeight(5),
     },
     button:{
-        backgroundColor:"#2AA05D",
+        backgroundColor:"#EE4B2B",
         marginTop:responsiveWidth(1),
         height:responsiveHeight(4),
         width:responsiveWidth(25),
-        borderRadius:8,
+        borderRadius:10,
         justifyContent:"center",
         alignItems:"center",
         marginLeft:responsiveWidth(5),
     },
     name:{
         color:"#A8ABB3",
-        fontSize:responsiveFontSize(2.2),
+        fontSize:responsiveFontSize(2.4),
         fontWeight:"400",
         lineHeight:30,
 

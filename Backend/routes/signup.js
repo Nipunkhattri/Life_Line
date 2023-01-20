@@ -8,7 +8,6 @@ app.use(express.json());
 router.post(`/signup`, (req, res) => {
   try {
     console.log(req.body);
-    // const {name,email,password,phNum} = req.body
     bcrypt.hash(req.body.password, 10, (err, hash) => {
       if (err) {
         console.log(err.message);

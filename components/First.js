@@ -1,5 +1,10 @@
 import React from 'react';
-import { Text,View,StyleSheet,Button ,Image,borderWidth,Pressable, TouchableOpacity} from 'react-native'
+import { Text,View,StyleSheet,Button ,Image,borderWidth,Pressable, TouchableOpacity,PixelRatio,Dimensions} from 'react-native'
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const AppButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
@@ -11,6 +16,25 @@ const SkipButton = ({ onPress, title }) => (
       <Text style={styles.skipButtonText}>{title}</Text>
     </TouchableOpacity>
   );
+  
+  const {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+  } = Dimensions.get('window');
+  
+  // based on iphone 5s's scale
+  const scale = SCREEN_WIDTH / 320;
+  
+  export function normalize(size) {
+    const newSize = size * scale 
+    if (Platform.OS === 'ios') {
+      return Math.round(PixelRatio.roundToNearestPixel(newSize))
+    } else {
+      return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
+    }
+  }
+  //  fontSize: normalize(24)
+  
 
 const First = ({navigation}) => {
   return (
@@ -66,25 +90,27 @@ const styles = StyleSheet.create({
         flex:1
     },
     tinyLogo: {
-        width: 300,
-        height: 300,
+        width: responsiveWidth(90),
+        height: responsiveHeight(10),
         borderWidth:3,
         flex:0.4
     },
     text:{
-        fontSize:32,
+        fontSize:responsiveFontSize(3.3),
         flexWrap:"wrap",
         lineHeight:43,
-        width:330,
+        width:responsiveWidth(90),
+        // backgroundColor:"green",
         weight:600,
         height:144,
-        flex:0.22,
+        flex:0.17,
         color: "#555B63",
         marginTop:30,
-        textAlign:"center"
+        textAlign:"center",
+        // aspectRatio:6/3
     },
     stext:{
-        fontSize:20,
+        fontSize:responsiveFontSize(2.4),
         color:"#A8ABB3",
         flexWrap:"wrap",
         width:327,
@@ -94,7 +120,7 @@ const styles = StyleSheet.create({
     },
     appButtonContainer: {
         elevation: 8,
-        width:250,
+        width:responsiveWidth(50),
         backgroundColor: "#2AA05D",
         borderRadius: 20,
         paddingVertical: 10,

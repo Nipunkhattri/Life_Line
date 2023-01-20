@@ -3,7 +3,11 @@ import React from 'react'
 import { View ,Text,StyleSheet,Image,ScrollView,TouchableOpacity} from 'react-native'
 import { shadow } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 const DonorButton = ({ onPress, title }) => (
   <TouchableOpacity onPress={onPress} style={style.donorButtonContainer}>
     <Text style={style.donorButtonText}>{title}</Text>
@@ -85,23 +89,23 @@ const style = StyleSheet.create({
         // backgroundColor:"red"
         // alignItems:"center"
         // padding:15,
-        marginLeft:15
+        marginLeft:responsiveWidth(4)
     },
     donorButtonContainer: {
       elevation: 8,
-      width: 180,
-      height: 50,
+      width: responsiveWidth(40),
+    height: responsiveHeight(5.7),
       backgroundColor: "#2AA05D",
       borderRadius: 100,
       // marginTop: 3,
       marginBottom:10,
-      marginLeft:220,
+      marginLeft:responsiveWidth(53),
       // alignSelf:''
       paddingVertical: 13,
       // paddingHorizontal: 12,
     }, 
     donorButtonText: {
-      fontSize: 15,
+      fontSize: responsiveFontSize(2),
       color: "#fff",
       fontWeight: "400",
       alignSelf: "center",
@@ -113,31 +117,31 @@ const style = StyleSheet.create({
       marginHorizontal: 1,
     },
     txt:{
-        fontSize:30,
+      fontSize: responsiveFontSize(2),
         color:"green",
         textAlign:"center",
         marginTop:60,
         // fontWeight:700
     },
     tinyLogo:{
-        width: 400,
-        height: 220,
+        width: responsiveWidth(92),
+        height: responsiveHeight(25),
         borderWidth:3,
         flex:0.25,
         borderRadius:23,
-        marginTop:70,
+        marginTop: responsiveWidth(15),
     },
     divimg:{
-        width:130,
-        height:120,
+      width: responsiveWidth(33),
+      height: responsiveHeight(13.4),
         position:"absolute",
         borderWidth:0.4,
         elevation: 20,
         shadowColor: '#52006A',
         borderRadius:22,
       backgroundColor:"white",
-      top:220,
-        left:20
+      top:responsiveWidth(50),
+        left:responsiveWidth(5)
     },
     divall:{
       flex:1,
@@ -145,38 +149,39 @@ const style = StyleSheet.create({
     },
     tinyLogo1:{
       borderRadius:12,
-      height:76,
-      width:76,
+      width: responsiveWidth(20),
+      height: responsiveHeight(8.4),
       marginTop:20,
       marginLeft:30,
       display:"flex",
       justifyContent:"center"
     },
     txt1:{
-      fontSize:30,
-      width:300,
+      fontSize:responsiveFontSize(3.5),
+      width: responsiveWidth(70),
       color:"green",
       textAlign:"center",
-      marginTop:60,
-      marginLeft:-40
+      marginTop:responsiveWidth(13),
+      marginLeft:responsiveWidth(-8)
     },
     div1:{
       // borderWidth:3,
-      height:370,
-      width:370,
-      paddingTop:25,
+      height:responsiveHeight(47),
+      width:responsiveWidth(90),
+      // paddingTop:25,
     },
     div2:{
+      // backgroundColor:"black",
       margin:10,
       paddingTop:10
     },
     txt2:{
-      fontSize:18,
+      fontSize:responsiveFontSize(2.2),
       fontWeight:"500"
     },
     txt3:{
       color:"gray",
-      fontSize:15
+      fontSize:responsiveFontSize(1.9),
     }
 })
 export default HospitalPage

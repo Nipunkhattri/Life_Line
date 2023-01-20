@@ -8,11 +8,11 @@ const bodyParser = require("body-parser");
 // login authentication
 
 router.post("/login", (req, res) => {
-  const email = req.body.email;
-  // console.log(req.body);
+  const username = req.body.username;
+  console.log(req.body);
   const password = req.body.password;
 
-  User.findOne({ email: email }, (err, obj) => {
+  User.findOne({ username: username }, (err, obj) => {
     if (err) {
       console.log(err.message);
     } else {
@@ -21,11 +21,11 @@ router.post("/login", (req, res) => {
           console.log(err.message);
         }
         if (result) {
-          const email = obj.email;
-          const token = jwt.sign({ email }, "secretjwtkey", {
+          const username = obj.username;
+          const token = jwt.sign({ username }, "secretjwtkey", {
             expiresIn: "10m",
           });
-          const refreshToken = jwt.sign({ email }, "refreshtokenkey", {
+          const refreshToken = jwt.sign({ username }, "refreshtokenkey", {
             expiresIn: "7d",
           });
           res.json({

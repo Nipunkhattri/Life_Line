@@ -13,7 +13,13 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 import { showError } from '../utilits/helperFunction';
 import validator from '../utilits/validation';
 import { useDispatch,useSelector } from "react-redux";
@@ -41,9 +47,33 @@ function CreateAccount({navigation}) {
   console.log(data);
   const handleSignup = ()=>{
     if(name=='' || email=='' || password=='' || phNum==''){
+      Alert.alert(
+        "Complete the form",
+        "Fill given details",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
       return ;
     }
     if(phNum.length<10){
+      Alert.alert(
+        "Invalid Number",
+        "Please check",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
       return ;
     }
     console.log(user);
@@ -79,6 +109,18 @@ function CreateAccount({navigation}) {
     else{
       navigation.navigate("SignUp");
     }
+    const validate = (text) => {
+      console.log(text);
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+      if (reg.test(text) === false) {
+        console.log("Email is Not Correct");
+        return false;
+      }
+      else {
+        console.log("Email is Correct");
+        return true;
+      }
+    }
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   return (
     <>
@@ -94,6 +136,7 @@ function CreateAccount({navigation}) {
           paddingTop: 70,
         }}
       >
+        <ScrollView style={styles.scroll}>
         <View style={styles.heading}>
           <Text style={styles.heading}>Create new account</Text>
         </View>
@@ -112,6 +155,7 @@ function CreateAccount({navigation}) {
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             <TextInput
               style={styles.input}
+              secureTextEntry={true} 
               // value={user.password}
               placeholder="🔐   Enter your Password"
               onChangeText={(password) =>updatestate({password})}
@@ -124,7 +168,10 @@ function CreateAccount({navigation}) {
             <TextInput
               style={styles.input}
               placeholder="🔐   Enter your Email"
-              onChangeText={(email) =>updatestate({email})}
+              // onChangeText={(text) => this.validate(text)}
+              onChangeText={(email) =>{
+                  updatestate({email})
+              }}
               // right={<TextInput.Icon name='eye'/>}
             />
           </View>
@@ -139,7 +186,7 @@ function CreateAccount({navigation}) {
           </View>
         </View>
         <Signin
-          title="Sigi in"
+          title="Register"
           size="sm"
           backgroundColor="#007bff"
           onPress={
@@ -155,11 +202,12 @@ function CreateAccount({navigation}) {
           <Image source={require("../assets/linkedin.jpeg")} />
           <Image source={require("../assets/facebook.jpeg")} />
           <View style={styles.sigin}>
-            <Text style={{ color: "#7d7d7d", fontSize: 14 }} onPress={()=>{navigation.navigate("login")}}>
+            <Text style={{ color: "#7d7d7d", fontSize:responsiveFontSize(1.9)}} onPress={()=>{navigation.navigate("login")}}>
               Already have an account .Sigin in
             </Text>
           </View>
         </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </>
   );
@@ -168,7 +216,10 @@ function CreateAccount({navigation}) {
 export default CreateAccount;
 
 const styles = StyleSheet.create({
-  size:{
+  scroll:{
+    marginHorizontal: 1,
+  }, 
+   size:{
     height:30,
     width:30
   },
@@ -181,13 +232,13 @@ const styles = StyleSheet.create({
     // backgroundColor:'tomato',
     // paddingTop:20,
     // backgroundColor:'blue',
-    fontSize: 32,
+    fontSize: responsiveFontSize(3.6),
     fontWeight: "800",
   },
   subheading: {
     flex: 0.2,
     fontWeight: "600",
-    fontSize: 16,
+    fontSize: responsiveFontSize(1.6),
 
     // paddingTop: 10,
     color: "#a8abb3",
@@ -204,14 +255,14 @@ const styles = StyleSheet.create({
   },
   label: {
     // backgroundColor:'pink',
-    marginBottom: 5,
+    marginBottom: responsiveWidth(3),
     fontWeight: "400",
-    fontSize: 15,
+    fontSize:responsiveFontSize(1.9),
     color: "#a8abb3",
   },
   input: {
     backgroundColor: "#f9f9ff",
-    width: 345,
+    width:responsiveWidth(80),
     paddingLeft: 15,
     // paddingBottom:15,
     // marginLeft:-50,
@@ -229,7 +280,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     backgroundColor: "#2aa05d",
-    width: 280,
+    width: responsiveWidth(60),
     height: 48,
     justifyContent: "center",
     alignItems: "center",
@@ -241,17 +292,17 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "space-between",
     marginTop: 20,
-    width: 150,
+    width: responsiveWidth(30),
     flexWrap: "wrap",
   },
   sigin: {
-    width: 250,
+    width: responsiveWidth(60),
     marginTop: 30,
-    marginLeft: -20,
+    marginLeft: -50,
   },
   appButtonContainer: {
     elevation: 8,
-    width: 250,
+    width: responsiveWidth(50),
     backgroundColor: "#2AA05D",
     borderRadius: 20,
     alignSelf: "center",
@@ -259,7 +310,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   appButtonText: {
-    fontSize: 18,
+    fontSize: responsiveFontSize(1.9),
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
