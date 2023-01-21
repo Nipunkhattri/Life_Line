@@ -33,7 +33,7 @@ export default function Routes() {
         <Stack.Screen
           name="Landing"
           options={{ headerShown: false }}
-          component={Hospage}
+          component={HospitalOrganReq}
         />
         <Stack.Screen
           name="First"

@@ -8,6 +8,8 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
+import * as DocumentPicker from "expo-document-picker";
+import FilePicker from "react-native-document-picker"
 const BloodButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={style.bloodButtonContainer}>
       <Text style={style.bloodButtonText}>{title}</Text>
@@ -18,12 +20,18 @@ const SubmitButton = ({ onPress, title }) => (
       <Text style={style.submitButtonText}>{title}</Text>
     </TouchableOpacity>
 );
+const FileButton = ({ onPress, title }) => (
+  <TouchableOpacity onPress={onPress} style={style.submitButtonContainer}>
+    <Text style={style.submitButtonText}>{title}</Text>
+  </TouchableOpacity>
+);
 const BloodBankButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={style.bankButtonContainer}>
       <Text style={style.submitButtonText}>{title}</Text>
     </TouchableOpacity>
 );
 const HospitalOrganReq = ({navigation}) => {
+  const [pres,setPres]=useState(null)
     const [page,setpage]=useState('true');
     const dispatch = useDispatch
     const [find,setfind]= useState({
@@ -272,6 +280,28 @@ const HospitalOrganReq = ({navigation}) => {
               </>
             )
     }
+{/* ----------------------------------------File upload button------------------------------------ */}
+
+<FileButton title="Upload priscription"
+onPress={async ()=>{
+  try{
+    const response=await DocumentPicker.getDocumentAsync(
+      {
+        type:'image/*'
+      }
+    )
+    setPres(response)
+    console.log(pres.uri)
+    console.log("Done");
+  }catch(err){
+    console.log(err);
+  }
+}}/>
+{pres!=null?
+  <View style={{width:120,height:120}}><Text style={style.label}>{pres.name}</Text>
+  <Image style={{width:100,height:100}}source={{uri:pres.uri}}/></View>:null
+}
+{/* ----------------------------------------------------------------------------------------------------------- */}
         <SubmitButton
               title="Send To Hospital"
               size="sm"
