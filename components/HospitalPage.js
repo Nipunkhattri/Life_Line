@@ -1,24 +1,73 @@
-// import { style } from 'deprecated-react-native-prop-types/DeprecatedViewPropTypes'
 import React from 'react'
+import { useState,useEffect } from 'react'
 import { View ,Text,StyleSheet,Image,ScrollView,TouchableOpacity} from 'react-native'
 import { shadow } from 'react-native-paper'
+import * as Location from 'expo-location'
+import {getPreciseDistance} from 'geolib'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
+import MapView ,{Marker} from 'react-native-maps';
 const DonorButton = ({ onPress, title }) => (
   <TouchableOpacity onPress={onPress} style={style.donorButtonContainer}>
     <Text style={style.donorButtonText}>{title}</Text>
   </TouchableOpacity>
 );
 const HospitalPage = ({navigation}) => {
-  return (
-    <View style={style.main}>
-      {/* <Text style={style.txt}>Hospital Profile</Text> */}
-      <ScrollView style={style.scrollView}>
-      <Image style={style.tinyLogo} source={require('../assets/hospital.png')}/>
+ //-------------------CODE TO GET LIVE LOCATION ----------------------------------------------------------------------------------
+ const [location, setLocation] = useState(null);
+ const [errorMsg, setErrorMsg] = useState(null);
+ const [latlng,setuselocation]=useState({latitude:40.926383322973702,longitude:90.96577935915445})
+ useEffect(() => {
+   (async () => {
+     
+     let { status } = await Location.requestForegroundPermissionsAsync();
+     if (status !== 'granted') {
+       setErrorMsg('Permission to access location was denied');
+       return;
+     }
+
+     let location = await Location.getCurrentPositionAsync({});
+     setLocation(location);
+     if (errorMsg) {
+      //  text = errorMsg;
+      //  console.log(errorMsg)
+       setuselocation({...latlng,latitude:26.926383322973702})
+       setuselocation({...latlng,longitude:80.96577935915445})
+     } else if (location) {
+      //  text = location;
+       console.log(location.coords.latitude)
+       setuselocation({...latlng,latitude:location.coords.latitude})
+       setuselocation({...latlng,longitude:location.coords.longitude})
+       console.log(latlng)
+      //USER LIVE LATITUDE AND LONDITUDE ----------------------------------
+      }
+   })();
+ }, []);
+  ///--------------------------------------------------------------------------------------------------
+  console.log(`${latlng.latitude} actuall value`)
+  const latlng2={latitude: 26.926383322973702,longitude:80.96577935915445}//HOSPIRAL LATIDUEE AND LONDITUDE-------------------------------------------------------
+        const lat=Math.abs(latlng.latitude-latlng2.latitude)
+        const log=Math.abs(latlng.longitude-latlng2.longitude)
+//--------------------distance---------------
+const calculatePreciseDistance = () => {
+  var pdis = getPreciseDistance(
+    latlng,
+    latlng2,
+  );
+  // console.log(pdis/1000)
+  return pdis
+};
+
+// calculatePreciseDistance();
+
+        return (    
+            <View style={style.main}>
+            <ScrollView style={style.scrollView}>
+            <Image style={style.tinyLogo} source={require('../assets/hospital.png')}/>
       <View style={style.divimg}>
       <Image style={style.tinyLogo1} source={require('../assets/image10.png')}/>
         </View>
@@ -68,8 +117,46 @@ const HospitalPage = ({navigation}) => {
         <Text style={style.txt2}>Sub Category Type 2</Text>
         <Text style={style.txt3}>Heart, Lung, Kidney, Liver, Pancreas, Eye Tissue, Bone, Skin, Tendons, Heart, Intestine</Text>
         </View>
+        <View style={style.div2}>
+        <Text style={style.txt2}>Distance</Text>
+        <Text style={style.txt3}>{calculatePreciseDistance()}Km</Text>
+        </View>
       </View>
       </View>
+{/* //--------------------------------------------------MAP---------------------------------------
+//--------------------------------------------------MAP--------------------------------------- */}
+
+    
+    <View style={style.map}>
+      <MapView
+    draggable
+    style={style.maps}
+    // zoom={1}
+    region={{
+      latitude:latlng.latitude,
+      longitude: latlng.longitude,
+      latitudeDelta:lat*2,
+      longitudeDelta:log*2
+    }}>
+    <Marker
+    coordinate={latlng}         //-----USE LOCATION MARKER 
+    title='test marker '        //-----USE LOCATION MARKER HEADING 
+    description='hello world' 
+    pinColor='blue' //-----USE LOCATION MARKER DISCRIPTION
+    />                          
+          <Marker                //
+    coordinate={latlng2}         //------HOSPITAL LOCATION COORDINATE
+    title='test marker '        // ------HOSPIAL HADING 
+    description='hello world'  ///--------HOSPIAL DESCRIOPTOIN
+
+    />        
+    </MapView>
+  
+
+</View>
+  
+{/* //------------------------------MAP END-----------------------------------------
+//------------------------------MAP END----------------------------------------- */}
       <DonorButton
               title="Next"
               size="sm"
@@ -80,6 +167,7 @@ const HospitalPage = ({navigation}) => {
             />
       </ScrollView>
     </View>
+
   )
 }
 const style = StyleSheet.create({
@@ -182,6 +270,20 @@ const style = StyleSheet.create({
     txt3:{
       color:"gray",
       fontSize:responsiveFontSize(1.9),
+    },
+    map:{
+      width:"95%",
+      height:160,
+      // backgroundColor:"red",
+      marginTop:10,
+      marginBottom:15
+    },
+    maps:{
+      width:"95%",
+      height:160,
+      // backgroundColor:"red",
+      marginBottom:15
     }
+    
 })
 export default HospitalPage
