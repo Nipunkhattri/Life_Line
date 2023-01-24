@@ -71,6 +71,9 @@ export default Footer
 const home2=StyleSheet.create({
   footer: {
     flex: 0.1,
+    borderColor:"none",
+    borderWidth:0,
+    borderStyle:"none"
     // backgroundColor: "red",
   },
   footer: {

@@ -18,6 +18,7 @@ import RequestOb from "../components/RequestOb";
 import Request from "../components/Request";
 import RequestPage from "../components/RequestPage";
 import HospitalDetailsubmit from "../components/HospitalDetailsubmit";
+import ChatPage from "../components/ChatPage/ChatPage";
 // import  SignUp  from "../components/CreateAccount";
 
 const Stack = createNativeStackNavigator();
@@ -33,7 +34,7 @@ export default function Routes() {
         <Stack.Screen
           name="Landing"
           options={{ headerShown: false }}
-          component={HospitalOrganReq}
+          component={ChatPage}
         />
         <Stack.Screen
           name="First"
