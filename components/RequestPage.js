@@ -7,7 +7,7 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-const RequestPage = () => {
+const RequestPage = ({navigation}) => {
     const title = 'Cancel' ;
     const newtitle = 'Received' ;
   return (
@@ -62,7 +62,9 @@ const RequestPage = () => {
                         />
             </View>
             <View style={style.btndiv}>
-              <Pressable  style={{
+              <Pressable onPress={(e)=>{
+                navigation.navigate("people")
+              }}  style={{
                elevation: 8,
                width: responsiveWidth(44),
                height: responsiveHeight(6.4),
@@ -84,13 +86,12 @@ const RequestPage = () => {
         color: "white",
         fontWeight: "400",
         marginLeft:53
-        // alignSelf: "center",
-        // marginBottom:10,
-        // textTransform: "uppercase",
         }
       }>{title}</Text>
     </Pressable>
-    <Pressable  style={{
+    <Pressable onPress={(e)=>{
+                navigation.navigate("confirm")
+              }}   style={{
              elevation: 8,
              width: responsiveWidth(40),
              height: responsiveHeight(6.5),

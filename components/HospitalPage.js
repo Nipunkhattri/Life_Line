@@ -11,6 +11,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import MapView ,{Marker} from 'react-native-maps';
+import Footer from './HomePage.js/Footer'
 const DonorButton = ({ onPress, title }) => (
   <TouchableOpacity onPress={onPress} style={style.donorButtonContainer}>
     <Text style={style.donorButtonText}>{title}</Text>
@@ -94,7 +95,7 @@ const calculatePreciseDistance = () => {
   style={{
     borderBottomColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginTop:20
+    marginTop:30
   }}
 />
 
@@ -123,6 +124,7 @@ const calculatePreciseDistance = () => {
         </View>
       </View>
       </View>
+      {/* <Footer/> */}
 {/* //--------------------------------------------------MAP---------------------------------------
 //--------------------------------------------------MAP--------------------------------------- */}
 
@@ -254,12 +256,12 @@ const style = StyleSheet.create({
     },
     div1:{
       // borderWidth:3,
-      height:responsiveHeight(47),
+      height:responsiveHeight(40),
       width:responsiveWidth(90),
       // paddingTop:25,
+      // backgroundColor:"black",
     },
     div2:{
-      // backgroundColor:"black",
       margin:10,
       paddingTop:10
     },
@@ -275,7 +277,7 @@ const style = StyleSheet.create({
       width:"95%",
       height:160,
       // backgroundColor:"red",
-      marginTop:10,
+      marginTop:70,
       marginBottom:15
     },
     maps:{
@@ -284,6 +286,5 @@ const style = StyleSheet.create({
       // backgroundColor:"red",
       marginBottom:15
     }
-    
 })
 export default HospitalPage

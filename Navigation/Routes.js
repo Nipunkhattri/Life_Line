@@ -17,7 +17,10 @@ import HospitalOrganReq from "../components/HospitalOrganReq";
 import RequestOb from "../components/RequestOb";
 import Request from "../components/Request";
 import RequestPage from "../components/RequestPage";
+import Logout from "../components/Logout";
 import HospitalDetailsubmit from "../components/HospitalDetailsubmit";
+import Confirmed from "../components/Confirmed";
+import AzureMap from "../components/Azuremap";
 // import  SignUp  from "../components/CreateAccount";
 
 const Stack = createNativeStackNavigator();
@@ -33,7 +36,7 @@ export default function Routes() {
         <Stack.Screen
           name="Landing"
           options={{ headerShown: false }}
-          component={HospitalOrganReq}
+          component={AzureMap}
         />
         <Stack.Screen
           name="First"
@@ -97,6 +100,16 @@ export default function Routes() {
           name="organdetailssend"
           options={{ headerShown: false }}
           component={HospitalDetailsubmit}
+        />
+        <Stack.Screen
+          name="Logout"
+          options={{ headerShown: false }}
+          component={Logout}
+        />
+        <Stack.Screen
+          name="confirm"
+          options={{ headerShown: false }}
+          component={Confirmed}
         />
       </Stack.Navigator>
     </NavigationContainer>

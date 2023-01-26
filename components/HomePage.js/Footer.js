@@ -14,9 +14,9 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from "../../assets/heart";
 import User from "../../assets/User";
 import Bell from "../../assets/Bell";
-
 // import Slider2 from "./Slider2";
 import Home from "../../assets/Home";
+import { color } from 'react-native-reanimated';
 // import Health from "../../assets/Vector";
 // import Slider from "./Slider";
 // import Location from "../../assets/Location";
@@ -27,10 +27,14 @@ function Footer() {
     e.preventDefault();
     navigation.navigate("request");
   }
+  const Applogout = (e)=>{
+    e.preventDefault();
+    navigation.navigate("Logout");
+  }
   return (
     <View style={home2.footer}>
     <TouchableOpacity>
-      <View style={home2.FooterIcon}>
+      <View style={[home2.FooterIcon,home2.active]}>
         <Home />
       </View>
     </TouchableOpacity>
@@ -40,9 +44,8 @@ function Footer() {
         }}>
       <View
         style={home2.FooterIcon}
-   
       >
-        <Image source={require("../../assets/Vector.png")}/>
+        <Image style={home2.img} source={require("../../assets/Vector.png")}/>
       </View>
     </TouchableOpacity>
     <TouchableOpacity
@@ -50,15 +53,13 @@ function Footer() {
       <View
         style={home2.FooterIcon}
       >
-       <Image source={require("../../assets/req.png")}/>
+       <Image style={home2.img} source={require("../../assets/req.png")}/>
       </View>
     </TouchableOpacity>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={Applogout}>
+      
       <View
         style={home2.FooterIcon}
-        onPress={() => {
-          console.log("user");
-        }}
       >
         <User />
       </View>
@@ -89,12 +90,18 @@ const home2=StyleSheet.create({
     flexDirection: "row",
   },
   FooterIcon: {
-    flex: 0.1,
-    marginTop:6,
+    flex: 0.9,
+    // marginTop:6,
     justifyContent: "center",
     alignItems: "center",
     width: 35,
     height: 35,
     borderRadius: 8,
+    // backgroundColor:"red"
   },
+  img:{
+    height:25,
+    width:25,
+    // backgroundColor:"white"
+  }
 })

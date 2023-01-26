@@ -17,8 +17,6 @@ import MainStack from './Navigation/MainStack';
 import AuthStack from './Navigation/AuthStack';
 import Routes from './Navigation/Routes';
 const App = () => {
-
-  
   return (
     <>
     <Provider store={store}>

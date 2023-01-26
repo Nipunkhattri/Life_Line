@@ -1,5 +1,5 @@
 import axios from 'axios'
-const api= axios.create({baseURL:"http://192.168.221.85:5000/"});
+const api= axios.create({baseURL:"https://lifelineserver.azurewebsites.net/"});
 api.interceptors.request.use((req)=>{
     if(localStorage.getItem("profile")){
         req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`

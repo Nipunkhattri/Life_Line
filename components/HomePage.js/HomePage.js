@@ -92,11 +92,17 @@ function HomePage() {
     navigation.navigate("Hospage");
   }
 
+  const imagelogout =(e)=>{
+    e.preventDefault();
+    console.log("hii");
+    navigation.navigate("Logout");
+  }
+
   const item = ({item}) =>{
     return(
               <View style={{ flex: 1, backgroundColor: "white" ,marginBottom:5}}>
           <View style={home1.hospitalBox} >
-      <View style={home1.logo} >
+      <View style={home1.logo}>
         <Image style={{
           marginTop:20
         }} source={item.uri}/>
@@ -146,9 +152,9 @@ function HomePage() {
         <KeyboardAvoidingView style={home.page}>
           {/*----------------------------------TOP BAR START---------------------------------------- */}
           <View style={home.topbar}>
-            <Text style={home.profileName}>
+            <Text style={home.profileName} >
               <Image
-                source={require("../../assets/google.png")}
+                source={require("../../assets/image1.png")}
                 style={home.ProfileImage}
               />{" "}
               {user.result.name}

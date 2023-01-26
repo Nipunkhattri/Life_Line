@@ -21,8 +21,8 @@ const SubmitButton = ({ onPress, title }) => (
     </TouchableOpacity>
 );
 const FileButton = ({ onPress, title }) => (
-  <TouchableOpacity onPress={onPress} style={style.submitButtonContainer}>
-    <Text style={style.submitButtonText}>{title}</Text>
+  <TouchableOpacity onPress={onPress} style={style.FileButtonContainer}>
+    <Text style={style.FileButtonText}>{title}</Text>
   </TouchableOpacity>
 );
 const BloodBankButton = ({ onPress, title }) => (
@@ -35,12 +35,9 @@ const HospitalOrganReq = ({navigation}) => {
     const [page,setpage]=useState('true');
     const dispatch = useDispatch
     const [find,setfind]= useState({
-        name:"",
         email:"",
-        phone:"",
-        age:"",
-        gender:"",
-        obname:""
+        type:"",
+        organ:""
     })
     const title = 'Organ' ;
     const newtitle = 'blood' ;
@@ -54,9 +51,25 @@ const HospitalOrganReq = ({navigation}) => {
         setpage('false');
         console.log(page);
     }
-    const Bloodfindorgan = ()=>{
-        console.log(find);
-        // dispatch(findorgans((find)));
+    const Bloodfindorgan = async()=>{
+      try {
+        const res = await fetch("https://lifelineserver.azurewebsites.net/organRequest/", {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json",
+            "token":token
+          },
+          body:JSON.stringify(
+            find
+          )
+        });
+        console.log(res);
+        navigation.navigate("organdetailssend")
+        // const data = await res.json();
+      } catch (error) {
+        console.log(error);
+      }
     }
     const Bloodbankfind = ()=>{
         // console.log(find);
@@ -106,66 +119,35 @@ const HospitalOrganReq = ({navigation}) => {
     </Pressable>
             </View>
                 <View style={style.form}>
-                <Text style={style.label}>Name</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Name"
-                        onChangeText={(name) =>pdata({name})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
                 <Text style={style.label}>Email</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Email"
+                        placeholder="Email of Hospital"
                         onChangeText={(email) =>pdata({email})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Phone no.</Text>
+                <Text style={style.label}>Blood Grp?</Text>
+                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+                    <TextInput
+                        style={style.input}
+                        placeholder="Enter your Blood Grp"
+                        onChangeText={(type) =>pdata({type})}
+                        // right={<TextInput.Icon name='eye'/>}
+                        />
+                        </View>
+                <Text style={style.label}>What you need blood/Organ?</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Phone number"
-                        onChangeText={(phone) =>pdata({phone})}
+                        placeholder="What need..?"
+                        onChangeText={(organ) =>pdata({organ})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Age</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Age"
-                        onChangeText={(age) =>pdata({age})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Gender</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Gender"
-                        onChangeText={(gender) =>pdata({gender})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Blood Required</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter Blood grp required"
-                        onChangeText={(obname) =>pdata({obname})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                        
                 </View>
                 <BloodBankButton
               title="Mail to blood bank"
@@ -215,63 +197,32 @@ const HospitalOrganReq = ({navigation}) => {
     </Pressable>
               </View>
                 <View style={style.form2}>
-                    <Text style={style.label}>Name</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Name"
-                        onChangeText={(name) =>pdata({name})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
                 <Text style={style.label}>Email</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Email"
+                        placeholder="Email of hospital"
                         onChangeText={(email) =>pdata({email})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Phone no.</Text>
+                <Text style={style.label}>What Organ?</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
 
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Phone number"
-                        onChangeText={(phone) =>pdata({phone})}
+                        placeholder="Enter Organ Name"
+                        onChangeText={(type) =>updatestate({type})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
-                <Text style={style.label}>Age</Text>
+                <Text style={style.label}>What do you need blood/Organ</Text>
                 <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
                     <TextInput
                         style={style.input}
-                        placeholder="Enter your Age"
-                        onChangeText={(email) =>updatestate({email})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Gender</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter your Gender"
-                        onChangeText={(email) =>updatestate({email})}
-                        // right={<TextInput.Icon name='eye'/>}
-                        />
-                        </View>
-                <Text style={style.label}>Organ Required</Text>
-                <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-
-                    <TextInput
-                        style={style.input}
-                        placeholder="Enter Organ required"
-                        onChangeText={(email) =>updatestate({email})}
+                        placeholder="What you need?"
+                        onChangeText={(organ) =>updatestate({organ})}
                         // right={<TextInput.Icon name='eye'/>}
                         />
                         </View>
@@ -400,6 +351,21 @@ const style = StyleSheet.create({
         paddingVertical: 13,
         // paddingHorizontal: 12,
       }, 
+      FileButtonContainer: {
+        elevation: 8,
+        width: responsiveWidth(90),
+        height:  responsiveHeight(6),
+        // position:"absolute",
+        left:3,
+        backgroundColor: "#263238",
+        borderRadius: 100,
+        marginTop:responsiveWidth(5),
+        // marginTop: 3,
+        marginBottom:10,
+        // alignSelf:''
+        paddingVertical: 13,
+        // paddingHorizontal: 12,
+      }, 
       donorButtonText: {
         fontSize: responsiveFontSize(2.3),
         color: "black",
@@ -417,6 +383,14 @@ const style = StyleSheet.create({
         // textTransform: "uppercase",
       },
       submitButtonText: {
+        fontSize:  responsiveFontSize(1.9),
+        color: "#fff",
+        fontWeight: "400",
+        alignSelf: "center",
+        // marginBottom:10,
+        // textTransform: "uppercase",
+      },
+      FileButtonText: {
         fontSize:  responsiveFontSize(1.9),
         color: "#fff",
         fontWeight: "400",

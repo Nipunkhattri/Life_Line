@@ -51,7 +51,7 @@ const First = ({navigation}) => {
             <View style={styles.CircleShape2} />
         </View>
         <AppButton title="Next" size="sm" backgroundColor="#007bff" onPress={()=>{navigation.navigate("Second")}}/>
-        <SkipButton title="Skip" size="sm" backgroundColor="#007bff" />
+        <SkipButton title="Skip" size="sm" backgroundColor="#007bff" onPress={()=>{navigation.navigate("login")}}/>
         </View>
     </>
   )

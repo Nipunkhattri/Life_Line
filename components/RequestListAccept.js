@@ -23,8 +23,6 @@ const RequestList = () => {
   )
 }
 
-
-
 const requestlist=StyleSheet.create({
     item:{
         // flex:0.1,
@@ -35,7 +33,6 @@ const requestlist=StyleSheet.create({
         width:responsiveWidth(75),
         height:responsiveHeight(8),
     },
-
     logo:{
         borderRadius:100,
         width:responsiveWidth(11),
@@ -43,7 +40,7 @@ const requestlist=StyleSheet.create({
         height:responsiveHeight(5),
     },
     button:{
-        backgroundColor:"#EE4B2B",
+        backgroundColor:"#263238",
         marginTop:responsiveWidth(1),
         height:responsiveHeight(4),
         width:responsiveWidth(25),
