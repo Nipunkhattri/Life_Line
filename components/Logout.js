@@ -2,34 +2,49 @@ import React from 'react'
 import {
 View,
 Text,
-StyleSheet
+StyleSheet,
+TouchableOpacity
 } from "react-native";
+import {useSelector,useDispatch} from 'react-redux';
 import {
 responsiveHeight,
 responsiveWidth,
 responsiveFontSize,
-TouchableOpacity
 } from "react-native-responsive-dimensions";
-// const DonorButton = ({ onPress, title }) => (
-// <TouchableOpacity onPress={onPress} style={style.donorButtonContainer}>
-//     <Text style={style.donorButtonText}>{title}</Text>
-// </TouchableOpacity> 
-// );
-const Logout = () => {
-    const handlelogout = () =>{
-        dispatch({type:"LOGOUT"})
-        // navigation.navigate("login")
-        dispatch(setcurrentUser(null))
-      }
+import { setcurrentUser } from '../Redux/actions/currentreducer';
+const DonorButton = ({ onPress, title }) => (
+<TouchableOpacity onPress={onPress} style={style.donorButtonContainer}>
+    <Text style={style.donorButtonText}>{title}</Text>
+</TouchableOpacity> 
+);
+const Logout = ({navigation}) => {
+  const dispatch = useDispatch();
+  const handlelogout = () =>{
+      dispatch({type:"LOGOUT"})
+      navigation.navigate("login")
+      dispatch(setcurrentUser(null))
+    }
   return (
-    <View>
-       <Text>Logout</Text>
+    <View style={style.div}>
+      {/* <Text>HELOO</Text> */}
+       <DonorButton
+        title="Logout"
+        size="sm"
+        backgroundColor="#007bff"
+        onPress={
+          handlelogout
+          }
+          />
     </View>
   )
 }
 export default Logout
 
 const style = StyleSheet.create({
+  div:{
+    flex:1,
+    // backgroundColor:"red"
+  },
     donorButtonContainer: {
         elevation: 8,
         width: responsiveWidth(40),
@@ -37,8 +52,8 @@ const style = StyleSheet.create({
         backgroundColor: "#2AA05D",
         borderRadius: 100,
         // marginTop: 3,
-        marginBottom:10,
-        marginLeft:responsiveWidth(53),
+        marginTop:responsiveWidth(13),
+        marginLeft:responsiveWidth(13),
         // alignSelf:''
         paddingVertical: 13,
         // paddingHorizontal: 12,

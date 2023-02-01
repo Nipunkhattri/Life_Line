@@ -10,7 +10,8 @@ import {
   KeyboardAvoidingView,
   TouchableHighlight,
   Image,TouchableOpacity,
-  Alert
+  Alert,
+  ActivityIndicator
 } from "react-native";
 import {
   responsiveHeight,
@@ -35,12 +36,14 @@ function Intro({navigation}) {
   });
   // const {name,email,password,phNum} = user;
   const updatestate = (data) => setUser(()=>({...loginuser,...data}))
-
+  const[loading,setloading]=useState(false);
   const data = useSelector(state=>state.currentUserreducer);
   console.log(data);
   const handlelogin = ()=>{
     // console.log(loginuser);
     console.log(data);
+    setloading(true);
+    // console.log("hii");
     dispatch(login((loginuser)));
   }
   console.log(data);
@@ -100,8 +103,12 @@ function Intro({navigation}) {
             />
 
           </View>
-          
         </View>
+          {
+        (loading==true)?<View style={[style.container1, style.horizontal]}>
+    <ActivityIndicator size="large" />
+    </View>:<></>
+        }
         <View style={style.sec}>
 
             <Text style={style.txt}>Forget Password?</Text>
@@ -126,9 +133,18 @@ function Intro({navigation}) {
 export default Intro;
 
 const style = StyleSheet.create({
+  container1:{
+    // backgroundColor:"green",
+  },
   size:{
       height:30,
       width:30
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    marginTop:20
   },
   txt:{
     fontSize:responsiveFontSize(1.6),

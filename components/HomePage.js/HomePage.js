@@ -152,7 +152,7 @@ function HomePage() {
         <KeyboardAvoidingView style={home.page}>
           {/*----------------------------------TOP BAR START---------------------------------------- */}
           <View style={home.topbar}>
-            <Text style={home.profileName} >
+            <Text style={home.profileName} onPress={imagelogout}>
               <Image
                 source={require("../../assets/image1.png")}
                 style={home.ProfileImage}
@@ -268,6 +268,7 @@ height: 45,
   profileName: {
     marginLeft: 10,
     flex: 1,
+    // backgroundColor:"red"
   },
   topbar: {
     flex: 0.09,
